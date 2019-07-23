@@ -1,3 +1,40 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu side="start">
+    <ion-header>
+      <ion-toolbar color="light">
+        <ion-title>
+          Ballistic Wind Calculator
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/tabs/tab1">
+            <ion-icon name="calculator" slot="start"></ion-icon>
+            <ion-label>Calculations</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/inputs">
+            <ion-icon name="create" slot="start"></ion-icon>
+            <ion-label>Wind Samples Input</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/settings">
+            <ion-icon name="settings" slot="start"></ion-icon>
+            <ion-label>Settings</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item lines="none" routerLink="/help">
+            <ion-icon name="help-circle" slot="start"></ion-icon>
+            <ion-label>Help!</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <ion-router-outlet main></ion-router-outlet>
 </ion-app>
