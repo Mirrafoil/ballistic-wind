@@ -28,7 +28,7 @@ export class WindDataService {
   fetchWindData() {
     console.log("Getting WindData from storage");
     const windData = [];
-    const resData = localStorage.getItem("windData");
+    const resData = JSON.parse(localStorage.getItem("windData"));
     for (const key in resData) {
       if (resData.hasOwnProperty(key)) {
         windData.push(
