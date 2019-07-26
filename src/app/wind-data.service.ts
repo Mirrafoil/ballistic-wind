@@ -43,6 +43,7 @@ export class WindDataService {
     this._windData.next(windData);
   }
 
+
   getWindData(altitude: number) {
     return this.windData.pipe(
       take(1),
