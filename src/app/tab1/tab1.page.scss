@@ -31,6 +31,16 @@
   padding-bottom: -12px;
 }
 
+.squareMediumText {
+  font-size: 36px;
+  font-weight: bold;
+  padding-bottom: -12px;
+}
+
+.squareUnitText {
+  font-size: 12px;
+}
+
 h1 {
   size: 48px;
   font-weight: bold;
@@ -38,4 +48,10 @@ h1 {
 
 ion-icon {
   font-size: 72px;
+}
+
+.sizeAndOffset {
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
 }
