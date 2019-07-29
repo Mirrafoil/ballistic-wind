@@ -96,7 +96,8 @@ export class Tab1Page {
         this.altitudes.push(altitude);
       }
       // console.log(this.altitudes);
-
+      this.windDataService.passAltitudes(this.altitudes);
+      
       // Gross Error Calculations
       const dropHeightTrue =
         this.form.value.dropAltitude - this.form.value.dzElevation;
@@ -136,13 +137,13 @@ export class Tab1Page {
         this.windVector = 360 - windVectorInitial;
       }
 
-      if(this.windVector + 90 > 360){
+      if (this.windVector + 90 > 360) {
         this.possRunInOne = this.windVector - 270;
       } else {
         this.possRunInOne = this.windVector + 90;
       }
 
-      if(this.windVector - 90 < 0){
+      if (this.windVector - 90 < 0) {
         this.possRunInTwo = this.windVector + 270;
       } else {
         this.possRunInTwo = this.windVector - 90;

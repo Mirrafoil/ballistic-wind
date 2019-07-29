@@ -6,7 +6,6 @@
     <ion-title>Data Inputs</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
   <ion-grid>
     <ion-row>
@@ -20,15 +19,13 @@
         <ion-label>Speed</ion-label>
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let altitudeData of windData">
+    <ion-row *ngFor="let altitude of altitudes">
       <ion-col size="3" offset="1">
-        {{ altitudeData.altitude }}
+        {{ altitude }}
       </ion-col>
       <ion-col size="3" offset="1">
-        {{ altitudeData.dir }}
       </ion-col>
       <ion-col size="3" offset="1">
-        {{ altitudeData.dir }}
       </ion-col>
     </ion-row>
   </ion-grid>

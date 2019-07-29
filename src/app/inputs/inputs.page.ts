@@ -1,3 +1,4 @@
+import { WindDataService } from './../wind-data.service';
 import { Component, OnInit } from "@angular/core";
 
 @Component({
@@ -5,13 +6,19 @@ import { Component, OnInit } from "@angular/core";
   templateUrl: "./inputs.page.html",
   styleUrls: ["./inputs.page.scss"]
 })
+
 export class InputsPage implements OnInit {
   windData: object[];
+  altitudes = [];
 
-  constructor() {}
+  getTheAltitudes(): void {
+    this.altitudes = this.windDataService.getAltitudes();
+  }
+
+  constructor(private windDataService: WindDataService) {}
 
   ngOnInit() {
-    if(localStorage.getItem("windData") !== null){
+    if (localStorage.getItem("windData") !== null) {
       console.log("Loading windData from localStorage");
       this.windData = JSON.parse(localStorage.getItem("windData"));
     } else {
@@ -30,7 +37,16 @@ export class InputsPage implements OnInit {
         { altitude: 14000, dir: 311, spd: 24 },
         { altitude: 15000, dir: 293, spd: 26 }
       ];
-      localStorage.setItem("windData",JSON.stringify(this.windData));
+      localStorage.setItem('windData', JSON.stringify(this.windData));
     }
+
   }
+
+  ionViewWillEnter() {
+    this.getTheAltitudes();
+    console.log('Received: ', this.altitudes);
+
+  // Present Form for User
+  }
+
 }

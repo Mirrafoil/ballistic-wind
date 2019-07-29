@@ -8,7 +8,8 @@ import { take, map, tap } from "rxjs/operators";
 })
 export class WindDataService {
   private _windData = new BehaviorSubject<WindData[]>([]);
-
+  altitudes = [1000, 2000, 3000, 4000, 5000, 6000];
+  
   get windData() {
     return this._windData.asObservable();
   }
@@ -43,6 +44,20 @@ export class WindDataService {
     this._windData.next(windData);
   }
 
+  passAltitudes(altitudes) {
+    this.altitudes = [...this.altitudes, ...altitudes];
+    this.altitudes = this.altitudes.filter(onlyUnique);
+
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+    // console.log(this.altitudes);
+  }
+
+  getAltitudes() {
+    console.log("Here, have Altitudes:", this.altitudes);
+    return this.altitudes;
+  }
 
   getWindData(altitude: number) {
     return this.windData.pipe(

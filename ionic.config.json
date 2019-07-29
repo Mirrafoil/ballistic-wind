@@ -1,5 +1,7 @@
 {
   "name": "ballistic-wind",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
