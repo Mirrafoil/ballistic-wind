@@ -18,22 +18,23 @@
     <ion-row *ngFor="let windDataElement of windData">
       <ion-col size="3" offset="1">
           <ion-text>{{ windDataElement.altitude }}</ion-text>
-          <ion-input ([ngModel])="windDataElement.altitude"></ion-input>
       </ion-col>
       <ion-col size="3" offset="1">
           <ion-text>{{ windDataElement.dir }}</ion-text>
-        <ion-input ([ngModel])="windDataElement.dir"></ion-input>
       </ion-col>
       <ion-col size="3" offset="1" color="primary">
           <ion-text>{{ windDataElement.spd }}</ion-text>
-        <ion-input ([ngModel])="windDataElement.spd"></ion-input>
       </ion-col>
     </ion-row>
-    <ion-row>
-      <ion-button>
-        <ion-button fill="solid" expand="full" (click)="addNewRow()">+
+    <ion-row padding>
+      <ion-buttons>
+        <ion-button fill="solid" expand="full" scolor="secondary" (click)="addNewRow()">+
         </ion-button>
-      </ion-button>
+      </ion-buttons>
+      <ion-buttons>
+        <ion-button fill="solid" color="primary" expand="full" (click)="submitWindData()"> Submit WindData
+        </ion-button>
+      </ion-buttons>
     </ion-row>
   </ion-grid>
 </ion-content>

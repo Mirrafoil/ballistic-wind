@@ -7,6 +7,7 @@ import {
   FormArray,
   FormBuilder
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inputs',
@@ -22,7 +23,10 @@ export class InputsPage implements OnInit {
     this.altitudes = this.windDataService.getAltitudes();
   }
 
-  constructor(private windDataService: WindDataService) {}
+  constructor(
+    private windDataService: WindDataService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     if (localStorage.getItem('windData') !== null) {
@@ -72,5 +76,9 @@ export class InputsPage implements OnInit {
   addNewRow() {
     console.log('Adding New Altitude Row');
     this.windData.push({ altitude: null, dir: null, spd: null });
+  }
+
+  submitWindData() {
+    this.router.navigate(['/calc']);
   }
 }
