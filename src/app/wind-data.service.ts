@@ -1,15 +1,15 @@
-import { WindData } from "./windData.model";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { take, map, tap } from "rxjs/operators";
+import { WindData } from './windData.model';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { take, map, tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class WindDataService {
   private _windData = new BehaviorSubject<WindData[]>([]);
-  altitudes = [1000, 2000, 3000, 4000, 5000, 6000];
-  
+  altitudes = [];
+
   get windData() {
     return this._windData.asObservable();
   }
@@ -27,9 +27,9 @@ export class WindDataService {
   }
 
   fetchWindData() {
-    console.log("Getting WindData from storage");
+    console.log('Getting WindData from storage');
     const windData = [];
-    const resData = JSON.parse(localStorage.getItem("windData"));
+    const resData = JSON.parse(localStorage.getItem('windData'));
     for (const key in resData) {
       if (resData.hasOwnProperty(key)) {
         windData.push(
@@ -55,17 +55,8 @@ export class WindDataService {
   }
 
   getAltitudes() {
-    console.log("Here, have Altitudes:", this.altitudes);
+    console.log('Here, have Altitudes:', this.altitudes);
     return this.altitudes;
-  }
-
-  getWindData(altitude: number) {
-    return this.windData.pipe(
-      take(1),
-      map(windData => {
-        return { ...windData.find(e => e.altitude === altitude) };
-      })
-    );
   }
 
   addWindData(altitude: number, dir: number, spd: number) {
@@ -73,5 +64,16 @@ export class WindDataService {
     this.windData.pipe(take(1)).subscribe(windData => {
       this._windData.next(windData.concat(newWindData));
     });
+  }
+
+  checkIfWindDataAdded() {
+    if (localStorage.getItem('windData') !== null) {
+      return false;
+    } else if (JSON.parse(localStorage.getItem('windData')).length > 0) {
+      console.log('Looks like we have some windData stored!');
+      return true;
+    } else {
+      return false;
+    }
   }
 }

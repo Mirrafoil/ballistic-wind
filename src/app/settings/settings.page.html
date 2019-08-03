@@ -13,5 +13,9 @@
       <ion-label>Night Time Mode</ion-label>
       <ion-toggle [(ngModel)]="theme"></ion-toggle>
     </ion-item>
+    <ion-item>
+      <ion-button fill="solid" expand="full" color="danger" (click)="onSubmitResetAllLocalStorage()">Reset All Local Data
+      </ion-button>
+    </ion-item>
   </ion-list>
 </ion-content>

@@ -1,16 +1,17 @@
-import { WindData } from "./../windData.model";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { WindDataService } from "./../wind-data.service";
-import { Component } from "@angular/core";
-import { Subscription } from "rxjs";
+import { WindData } from './../windData.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { WindDataService } from './../wind-data.service';
+import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: "app-tab1",
-  templateUrl: "tab1.page.html",
-  styleUrls: ["tab1.page.scss"]
+  selector: 'app-tab1',
+  templateUrl: 'tab1.page.html',
+  styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
   form: FormGroup;
+  bt80DropSettings = {};
   windData: WindData[];
   windDataSub: Subscription;
   possibleRunIn: number;
@@ -35,21 +36,40 @@ export class Tab1Page {
 
   ngOnInit() {
     this.showAnswers = false;
+    let dzElevationInitial = null;
+    let dropAltitudeInitial = null;
+    let diveRatioInitial = null;
+    let haveDropSettingsSet = false;
 
+    if (localStorage.getItem('bt80DropSettings') !== null) {
+      this.bt80DropSettings = JSON.parse(
+        localStorage.getItem('bt80DropSettings')
+      );
+      console.log(
+        'Loading bt80DropSettings from localStorage',
+        this.bt80DropSettings
+      );
+
+      dzElevationInitial = this.bt80DropSettings['dzElevation'];
+      dropAltitudeInitial = this.bt80DropSettings['dropAltitude'];
+      diveRatioInitial = this.bt80DropSettings['diveRatio'];
+
+      haveDropSettingsSet = true;
+    }
     if (isNaN(this.possibleRunIn)) {
       this.possibleRunIn = 0.0;
     }
     this.form = new FormGroup({
-      dzElevation: new FormControl(null, {
-        updateOn: "blur",
+      dzElevation: new FormControl(dzElevationInitial, {
+        updateOn: 'blur',
         validators: [Validators.required]
       }),
-      dropAltitude: new FormControl(null, {
-        updateOn: "blur",
+      dropAltitude: new FormControl(dropAltitudeInitial, {
+        updateOn: 'blur',
         validators: [Validators.required]
       }),
-      diveRatio: new FormControl(null, {
-        updateOn: "blur",
+      diveRatio: new FormControl(diveRatioInitial, {
+        updateOn: 'blur',
         validators: [Validators.required]
       })
     });
@@ -59,15 +79,27 @@ export class Tab1Page {
     this.windDataSub = this.windDataService.windData.subscribe(windData => {
       this.windData = windData;
     });
+
+    if (haveDropSettingsSet === true) {
+      this.onSubmitDropSettingsSet();
+    }
   }
 
-  ionViewWillEnter() {}
+  ionViewWillLeave() {
+    console.log('Saving Submitted Entries');
+  }
 
   onSubmitDropSettingsSet() {
     if (!this.form.valid) {
-      console.log("Not Valid!");
+      console.log('Not Valid!');
       return;
     } else {
+      const dropSettings = {
+        dzElevation: this.form.value.dzElevation,
+        dropAltitude: this.form.value.dropAltitude,
+        diveRatio: this.form.value.diveRatio
+      };
+      localStorage.setItem('bt80DropSettings', JSON.stringify(dropSettings));
       // Calculate Drop Height
       const dropHeight =
         1000 *
@@ -97,7 +129,7 @@ export class Tab1Page {
       }
       // console.log(this.altitudes);
       this.windDataService.passAltitudes(this.altitudes);
-      
+
       // Gross Error Calculations
       const dropHeightTrue =
         this.form.value.dropAltitude - this.form.value.dzElevation;
@@ -353,9 +385,9 @@ export class Tab1Page {
         dropHeightTrue * 0.0010896103896 + 1.94155844155844;
       this.timeCalculatedString =
         Math.round(timeCalculated).toString() +
-        "min " +
+        'min ' +
         Math.round((timeCalculated % 1) * 60).toString() +
-        "s";
+        's';
       this.CNI = drive + this.averageSpeed;
 
       // Gross Error
@@ -400,5 +432,9 @@ export class Tab1Page {
   onChangePossibleRunIn(event) {
     // console.log("Event Target Value: ",event.target.value);
     this.runInKM = parseFloat((+event.target.value * 1.852).toFixed(3));
+  }
+
+  onUpdateWindDataCalcs(bt80DropSettings) {
+    console.log('Provided Data: ', bt80DropSettings);
   }
 }

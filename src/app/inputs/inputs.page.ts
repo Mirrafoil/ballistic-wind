@@ -1,15 +1,22 @@
 import { WindDataService } from './../wind-data.service';
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormArray,
+  FormBuilder
+} from '@angular/forms';
 
 @Component({
-  selector: "app-inputs",
-  templateUrl: "./inputs.page.html",
-  styleUrls: ["./inputs.page.scss"]
+  selector: 'app-inputs',
+  templateUrl: './inputs.page.html',
+  styleUrls: ['./inputs.page.scss']
 })
-
 export class InputsPage implements OnInit {
   windData: object[];
   altitudes = [];
+  form: FormGroup;
 
   getTheAltitudes(): void {
     this.altitudes = this.windDataService.getAltitudes();
@@ -18,11 +25,11 @@ export class InputsPage implements OnInit {
   constructor(private windDataService: WindDataService) {}
 
   ngOnInit() {
-    if (localStorage.getItem("windData") !== null) {
-      console.log("Loading windData from localStorage");
-      this.windData = JSON.parse(localStorage.getItem("windData"));
+    if (localStorage.getItem('windData') !== null) {
+      // console.log('Loading windData from localStorage');
+      this.windData = JSON.parse(localStorage.getItem('windData'));
     } else {
-      console.log("No windData set, demo data");
+      console.log('No windData set, demo data');
       this.windData = [
         { altitude: 4000, dir: 255, spd: 12 },
         { altitude: 5000, dir: 253, spd: 11 },
@@ -40,13 +47,30 @@ export class InputsPage implements OnInit {
       localStorage.setItem('windData', JSON.stringify(this.windData));
     }
 
+    this.form = new FormGroup({
+      altitude: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      dir: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      spd: new FormControl(null, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      })
+    });
   }
 
   ionViewWillEnter() {
     this.getTheAltitudes();
     console.log('Received: ', this.altitudes);
-
-  // Present Form for User
+    // console.log(this.windData);
   }
 
+  addNewRow() {
+    console.log('Adding New Altitude Row');
+    this.windData.push({ altitude: null, dir: null, spd: null });
+  }
 }
