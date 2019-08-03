@@ -1,3 +1,4 @@
+import { ThemeSwitcherService } from './../theme-switcher.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class SettingsPage implements OnInit {
   chosenTheme: string;
 
-  constructor() {}
+  constructor(public themeSwitcher: ThemeSwitcherService) {}
 
   ngOnInit() {
     if (!localStorage.getItem('ballistic-settings-theme')) {
       this.chosenTheme = 'daytime';
+      this.themeSwitcher.setTheme('daytime');
       localStorage.setItem('ballistic-settings-theme', 'daytime');
     } else {
       this.chosenTheme = localStorage.getItem('ballistic-settings-theme');
+      this.themeSwitcher.setTheme(this.chosenTheme);
       console.log('Chosen Theme Pulled: ', this.chosenTheme);
     }
   }
@@ -23,6 +26,7 @@ export class SettingsPage implements OnInit {
   onUpdateChangeTheme($event) {
     this.chosenTheme = $event.target.value;
     localStorage.setItem('ballistic-settings-theme', $event.target.value);
+    this.themeSwitcher.setTheme(this.chosenTheme);
   }
 
   onSubmitResetAllLocalStorage() {
