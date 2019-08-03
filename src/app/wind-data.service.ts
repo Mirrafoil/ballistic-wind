@@ -27,21 +27,25 @@ export class WindDataService {
   }
 
   fetchWindData() {
-    console.log('Getting WindData from storage');
-    const windData = [];
-    const resData = JSON.parse(localStorage.getItem('windData'));
-    for (const key in resData) {
-      if (resData.hasOwnProperty(key)) {
-        windData.push(
-          new WindData(
-            resData[key].altitude,
-            resData[key].dir,
-            resData[key].spd
-          )
-        );
+    if (localStorage.getItem('windData') !== null) {
+      console.log('Fetching WindData from storage');
+      const windData = [];
+      const resData = JSON.parse(localStorage.getItem('windData'));
+      for (const key in resData) {
+        if (resData.hasOwnProperty(key)) {
+          windData.push(
+            new WindData(
+              resData[key].altitude,
+              resData[key].dir,
+              resData[key].spd
+            )
+          );
+        }
       }
+      this._windData.next(windData);
+    } else {
+      console.log('No Local WindData to grab');
     }
-    this._windData.next(windData);
   }
 
   passAltitudes(altitudes) {

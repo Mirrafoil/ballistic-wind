@@ -127,7 +127,9 @@
         </ion-text>
       </ion-item>
     </div>
-    <ion-button fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsSet()">{{ this.submitDropSettingsButtonText }}
+    <ion-button *ngIf="this.showSubmitParameters" fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsSet()">Submit Drop Parameters
+    </ion-button>
+    <ion-button *ngIf="!this.showSubmitParameters" fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsCalculate()">Calculate Drop Values
     </ion-button>
   </ion-list>
   <ion-card *ngIf="this.showAnswers" class="sizeAndOffset">
