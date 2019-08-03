@@ -33,6 +33,7 @@ export class Tab1Page {
   grossErrorYards: number;
   grossErrorKM: number;
   submitDropSettingsButtonText: string;
+  badFormSubmitted = false;
 
   constructor(
     private windDataService: WindDataService,
@@ -97,11 +98,19 @@ export class Tab1Page {
     console.log('Saving Submitted Entries');
   }
 
+  ionViewWillEnter() {
+    if (localStorage.getItem('bt80DropSettings') !== null) {
+      this.submitDropSettingsButtonText = 'Calculate Drop Parameters';
+    }
+  }
+
   onSubmitDropSettingsSet() {
     if (!this.form.valid) {
+      this.badFormSubmitted = true;
       console.log('Not Valid!');
       return;
     } else {
+      this.badFormSubmitted = false;
       const dropSettings = {
         dzElevation: this.form.value.dzElevation,
         dropAltitude: this.form.value.dropAltitude,

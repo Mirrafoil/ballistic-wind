@@ -8,14 +8,16 @@
 </ion-header>
 
 <ion-content>
-  <ion-list padding>
+  <ion-list>
     <ion-item lines="none">
-      <ion-label>Night Time Mode</ion-label>
-      <ion-toggle [(ngModel)]="theme"></ion-toggle>
+      <ion-label>App Color Theme</ion-label>
+      <ion-select (ngModel)="chosenTheme" (ionChange)="onUpdateChangeTheme($event)" interface="action-sheet">
+        <ion-select-option value="daytime">Day Theme</ion-select-option>
+        <ion-select-option value="nighttime">Night Theme</ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-item>
-      <ion-button fill="solid" expand="full" color="danger" (click)="onSubmitResetAllLocalStorage()">Reset All Local Data
+      <ion-button padding fill="solid" expand="full" color="danger" (click)="onSubmitResetAllLocalStorage()">Reset All Local
+        Data
       </ion-button>
-    </ion-item>
   </ion-list>
 </ion-content>
