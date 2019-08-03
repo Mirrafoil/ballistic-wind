@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { WindDataService } from './../wind-data.service';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -31,8 +32,12 @@ export class Tab1Page {
   grossError: number;
   grossErrorYards: number;
   grossErrorKM: number;
+  submitDropSettingsButtonText: string;
 
-  constructor(private windDataService: WindDataService) {}
+  constructor(
+    private windDataService: WindDataService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.showAnswers = false;
@@ -55,6 +60,9 @@ export class Tab1Page {
       diveRatioInitial = this.bt80DropSettings['diveRatio'];
 
       haveDropSettingsSet = true;
+      this.submitDropSettingsButtonText = 'Calculate Drop Parameters';
+    } else {
+      this.submitDropSettingsButtonText = 'Submit';
     }
     if (isNaN(this.possibleRunIn)) {
       this.possibleRunIn = 0.0;
@@ -100,6 +108,10 @@ export class Tab1Page {
         diveRatio: this.form.value.diveRatio
       };
       localStorage.setItem('bt80DropSettings', JSON.stringify(dropSettings));
+      if (this.submitDropSettingsButtonText === 'Submit') {
+        this.router.navigate(['/inputs']);
+        return;
+      }
       // Calculate Drop Height
       const dropHeight =
         1000 *

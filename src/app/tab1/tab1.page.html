@@ -122,10 +122,10 @@
         </ion-item-options>
       </ion-item-sliding>
     </div>
-    <ion-button fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsSet()">Calculate!
+    <ion-button fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsSet()">{{ this.submitDropSettingsButtonText }}
     </ion-button>
   </ion-list>
-  <ion-card class="sizeAndOffset">
+  <ion-card *ngIf="this.showAnswers" class="sizeAndOffset">
     <ion-card-content>
       <ion-card-subtitle>Possible Run:</ion-card-subtitle>
       <ion-list>

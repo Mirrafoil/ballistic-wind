@@ -68,10 +68,12 @@ export class WindDataService {
 
   checkIfWindDataAdded() {
     if (localStorage.getItem('windData') !== null) {
-      return false;
-    } else if (JSON.parse(localStorage.getItem('windData')).length > 0) {
-      console.log('Looks like we have some windData stored!');
-      return true;
+      const windDataStored = JSON.parse(localStorage.getItem('windData'));
+      if (windDataStored.length <= 0) {
+        return false;
+      } else {
+        return true;
+      }
     } else {
       return false;
     }
