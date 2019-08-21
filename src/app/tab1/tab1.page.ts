@@ -1,8 +1,5 @@
-import { WindData } from './../windData.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { WindDataService } from './../wind-data.service';
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { ThemeSwitcherService } from './../theme-switcher.service';
 
@@ -18,58 +15,45 @@ export class Tab1Page {
   chosenTheme: string;
 
   constructor(
-    private windDataService: WindDataService,
     private router: Router,
     public themeSwitcher: ThemeSwitcherService
   ) {}
 
   ngOnInit() {
-    let jumpTypeInitial = null;
-    let dropAltitudeInitial = null;
-    let actualAltitudeInitial = null;
-    let dzElevationInitial = null;
-    let verticalReferenceInitial = null;
-    let diveRatioInitial = null;
-    let haveDropSettingsSet = false;
-
     // If settings stored locally, grab them
     if (localStorage.getItem('dropSettings') !== null) {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
       console.log('Loading  settings from localStorage', this.dropSettings);
-      jumpTypeInitial = this.dropSettings['jumpType'];
-      dropAltitudeInitial = this.dropSettings['dropAltitude'];
-      actualAltitudeInitial = this.dropSettings['actualAltitude'];
-      dzElevationInitial = this.dropSettings['dzElevation'];
-      verticalReferenceInitial = this.dropSettings['verticalReference'];
-      diveRatioInitial = this.dropSettings['diveRatio'];
-      haveDropSettingsSet = true;
-    }
 
-    this.form = new FormGroup({
-      jumpType: new FormControl(jumpTypeInitial, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      dropAltitude: new FormControl(dropAltitudeInitial, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      actualAltitude: new FormControl(actualAltitudeInitial, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      dzElevation: new FormControl(dzElevationInitial, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      diveRatio: new FormControl(diveRatioInitial, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      verticalReference: new FormControl(verticalReferenceInitial, {
-        updateOn: 'blur',
-      })
-    });
+      this.form = new FormGroup({
+        jumpType: new FormControl(this.dropSettings['jumpType'], {
+          updateOn: 'blur',
+          validators: [Validators.required]
+        }),
+        dropAltitude: new FormControl(this.dropSettings['dropAltitude'], {
+          updateOn: 'blur',
+          validators: [Validators.required]
+        }),
+        actualAltitude: new FormControl(this.dropSettings['actualAltitude'], {
+          updateOn: 'blur',
+          validators: [Validators.required]
+        }),
+        dzElevation: new FormControl(this.dropSettings['dzElevation'], {
+          updateOn: 'blur',
+          validators: [Validators.required]
+        }),
+        diveRatio: new FormControl(this.dropSettings['diveRatio'], {
+          updateOn: 'blur',
+          validators: [Validators.required]
+        }),
+        verticalReference: new FormControl(
+          this.dropSettings['verticalReference'],
+          {
+            updateOn: 'blur'
+          }
+        )
+      });
+    }
   }
 
   ionViewWillLeave() {
@@ -86,14 +70,10 @@ export class Tab1Page {
   }
 
   onSubmitDropSettingsSet() {
-    const dropSettings = {
-      jumpType: this.form.value.jumpType,
-      dropAltitude: this.form.value.dropAltitude,
-      actualAltitude: this.form.value.actualAltitude,
-      dzElevation: this.form.value.dzElevation,
-      verticalReference: this.form.value.verticalReference,
-      diveRatio: this.form.value.diveRatio
-    };
+    const dropSettings = {};
+    Object.keys(this.form.value).forEach(key => {
+      dropSettings[key] = this.form.value[key];
+    });
     localStorage.setItem('dropSettings', JSON.stringify(dropSettings));
   }
 

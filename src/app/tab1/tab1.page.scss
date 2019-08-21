@@ -2,56 +2,9 @@ ion-content {
   --ion-background-color: #4cbaff;
 }
 
-.square {
-  position: relative;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--ion-color-light);
-}
-
-.square:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.squareContent {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: var(--ion-color-primary);
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-
-.squareLargeText {
-  font-size: 52px;
-  font-weight: bold;
-  padding-bottom: -12px;
-}
-
-.squareMediumText {
-  font-size: 36px;
-  font-weight: bold;
-  padding-bottom: -12px;
-}
-
-.squareUnitText {
-  font-size: 12px;
-}
-
 h1 {
   size: 48px;
   font-weight: bold;
-}
-
-ion-icon {
-  font-size: 72px;
 }
 
 ion-label {
@@ -68,10 +21,4 @@ p.white {
 p.noPaddingBottom {
   padding-bottom: 0px;
   margin-bottom: 0px;
-}
-
-.sizeAndOffset {
-  max-width: 540px;
-  margin-left: auto;
-  margin-right: auto;
 }

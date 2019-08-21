@@ -1,3 +1,26 @@
 ion-content {
     --ion-background-color: #0099ff;
+    color: #fff;
+  }
+
+  ion-row {
+    &.header {
+      font-weight: bold;
+      background-color: #fff;
+      border-bottom: #0099ff solid 4px;
+    }
+  }
+
+  ion-col {
+    &.middleCol {
+      border-left: #0099ff solid 4px;
+      border-right: #0099ff solid 4px;
+    }
+  }
+
+  .odd{
+    background-color: #f7fcff;
+  }
+  .even{
+    background-color: #f2f2f2;
   }

@@ -1,13 +1,5 @@
-import { WindDataService } from './../wind-data.service';
-import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
-  FormBuilder
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tab2',
@@ -15,70 +7,93 @@ import { Router } from '@angular/router';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-  windData: object[];
   altitudes = [];
-  form: FormGroup;
+  windData = [];
 
-  getTheAltitudes(): void {
-    this.altitudes = this.windDataService.getAltitudes();
-  }
-
-  constructor(
-    private windDataService: WindDataService,
-    private router: Router
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     if (localStorage.getItem('windData') !== null) {
       // console.log('Loading windData from localStorage');
       this.windData = JSON.parse(localStorage.getItem('windData'));
     } else {
-      console.log('No windData set, demo data');
-      this.windData = [
-        { altitude: 4000, dir: 255, spd: 12 },
-        { altitude: 5000, dir: 253, spd: 11 },
-        { altitude: 6000, dir: 283, spd: 15 },
-        { altitude: 7000, dir: 280, spd: 15 },
-        { altitude: 8000, dir: 301, spd: 16 },
-        { altitude: 9000, dir: 297, spd: 18 },
-        { altitude: 10000, dir: 300, spd: 20 },
-        { altitude: 11000, dir: 305, spd: 24 },
-        { altitude: 12000, dir: 310, spd: 25 },
-        { altitude: 13000, dir: 312, spd: 25 },
-        { altitude: 14000, dir: 311, spd: 24 },
-        { altitude: 15000, dir: 293, spd: 26 }
-      ];
-      localStorage.setItem('windData', JSON.stringify(this.windData));
+      console.log('No windData set, setting altitudes');
+      this.defineAltitudes();
     }
-
-    this.form = new FormGroup({
-      altitude: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      dir: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      spd: new FormControl(null, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      })
-    });
   }
 
   ionViewWillEnter() {
-    this.getTheAltitudes();
-    console.log('Received: ', this.altitudes);
-    // console.log(this.windData);
+    if (localStorage.getItem('windData') !== null) {
+      this.defineAltitudes();
+    }
   }
 
-  addNewRow() {
-    console.log('Adding New Altitude Row');
-    this.windData.push({ altitude: null, dir: null, spd: null });
+  ionViewWillLeave() {
+    this.submitWindData();
   }
 
   submitWindData() {
-    this.router.navigate(['/calc']);
+    console.log('Submitting Wind Data');
+  }
+
+  defineAltitudes() {
+    // Grab values from localStorage
+    const dataValues = JSON.parse(localStorage.getItem('dropSettings'));
+    const dropAltitude = dataValues.dropAltitude;
+    const actualAltitude = dataValues.actualAltitude;
+    const dzElevation = dataValues.dzElevation;
+    const jumpType = dataValues.jumpType;
+
+    console.log('Calculating Altitudes for ', jumpType);
+
+    let start = 0;
+    let step = 0;
+    this.altitudes = [];
+    if (jumpType === 'Standoff') {
+      // Calculate Start & Step for Standoff
+      start = 1000 * Math.floor(dzElevation / 1000 + 2);
+      if (
+        1000 * Math.floor((dropAltitude - dzElevation) / 1000 + 0.5) <
+        15500
+      ) {
+        step = 1000;
+      } else {
+        step = 2000;
+      }
+      let altitude = 0;
+      while (altitude < dropAltitude) {
+        if (altitude === 0) {
+          altitude = start;
+        } else {
+          altitude = altitude + step;
+        }
+        this.altitudes.push(altitude);
+      }
+    } else {
+      let altitude = 0;
+      let i = 0;
+      // Calculate Altitudes for Freefall
+      while (altitude < dropAltitude) {
+        if (actualAltitude > i * 1000) {
+          altitude = dzElevation + (i + 1) * 1000;
+        } else {
+          if (actualAltitude > (i - 1) * 1000) {
+            altitude = (Math.floor(altitude / 1000 - 0.51) + 2) * 1000;
+          } else {
+            altitude = altitude + 2000;
+          }
+        }
+        i += 1;
+        this.altitudes.push(altitude);
+      }
+      // Fix to align with MS Excel
+      this.altitudes.pop();
+    }
+    this.altitudes = this.altitudes.filter(onlyUnique);
+
+    function onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
+    }
+    localStorage.setItem('ballistic-altitudes', JSON.stringify(this.altitudes));
   }
 }

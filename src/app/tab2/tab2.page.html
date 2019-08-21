@@ -1,35 +1,26 @@
 <ion-header>
 
 </ion-header>
-<ion-content>
-    <ion-grid>
-        <ion-row>
-            <ion-col size="3" offset="1">Altitude</ion-col>
-            <ion-col size="3" offset="1">Direction</ion-col>
-            <ion-col size="3" offset="1">Speed</ion-col>
+<ion-content padding>
+    <ion-grid padding>
+        <ion-row class="header ion-text-center">
+            <ion-col size="4">Altitude</ion-col>
+            <ion-col class="middleCol" size="4">Direction</ion-col>
+            <ion-col size="4">Speed</ion-col>
         </ion-row>
-    </ion-grid>
-    <ion-grid id="inputBox">
-        <ion-row *ngFor="let windDataElement of windData">
-            <ion-col size="3" offset="1">
-                <ion-text>{{ windDataElement.altitude }}</ion-text>
+        <ion-row *ngFor="let altitude of altitudes; let i = index;" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+            <ion-col size="4" class="ion-text-center">
+                <ion-input required type="number" name=altitude{{i}} [(ngModel)]="altitudes[i]" placeholder="item">
+                </ion-input>
             </ion-col>
-            <ion-col size="3" offset="1">
-                <ion-text>{{ windDataElement.dir }}</ion-text>
+            <ion-col class="middleCol ion-text-center" size="4">
+                <ion-input required type="number" name=direction{{i}} [(ngModel)]="altitudes[i]" placeholder="item">
+                </ion-input>
             </ion-col>
-            <ion-col size="3" offset="1" color="primary">
-                <ion-text>{{ windDataElement.spd }}</ion-text>
+            <ion-col size="4" class="ion-text-center">
+                <ion-input required type="number" name=speed{{i}} [(ngModel)]="altitudes[i]" placeholder="item">
+                </ion-input>
             </ion-col>
-        </ion-row>
-        <ion-row padding>
-            <ion-buttons>
-                <ion-button fill="solid" expand="full" scolor="secondary" (click)="addNewRow()">+
-                </ion-button>
-            </ion-buttons>
-            <ion-buttons>
-                <ion-button fill="solid" color="primary" expand="full" (click)="submitWindData()"> Submit WindData
-                </ion-button>
-            </ion-buttons>
         </ion-row>
     </ion-grid>
 </ion-content>
