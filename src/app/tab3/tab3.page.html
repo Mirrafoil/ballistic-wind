@@ -6,11 +6,11 @@
     <ion-row align-items-center>
       <ion-col padding text-left>
         <p>Freefall</p>
-        <p>Drop Alt: 16000’ AMSL</p>
-        <p>Actuation Alt: 6000’ AGL</p>
-        <p>DZ Elevation: 288’</p>
+        <p>Drop Alt: {{ this.dropAlt }}16000’ AMSL</p>
+        <p>Actuation Alt: {{ this.actuationAlt }}6000’ AGL</p>
+        <p>DZ Elevation: {{ this.dzElevation }}288’</p>
         <p>Sample reference: AMSL</p>
-        <p>Drive: 2.5</p>
+        <p>Drive: {{ this.drive }}2.5</p>
       </ion-col>
 
     </ion-row>
@@ -18,16 +18,16 @@
   <ion-grid>
     <ion-row>
       <ion-col text-center>
-        <h1>Hi Bal: 289/20</h1>
-        <h1>Lo Bal: 233/13</h1>
-        <h1>CDWA: 12kts</h1>
-        <h1>Run-in: 242</h1>
+        <h1>Hi Bal: {{ this.hiBal }} 289/20</h1>
+        <h1>Lo Bal: {{ this.loBal }}233/13</h1>
+        <h1>CDWA: {{ this.CDWA }} 12kts</h1>
+        <h1>Run-in: {{ this.runIn }} 242</h1>
       </ion-col>
     </ion-row>
     <ion-list>
       <ion-row class="paddingTop">
         <ion-col size="5" offset="1">
-          <ion-item class="white" lines="none">
+          <ion-item class="white alignRight" lines="none">
             <ion-input type="number" [(ngModel)]="this.possibleRunIn" (ionInput)="onChangePossibleRunIn($event)">
             </ion-input>
             <ion-label class="paddingLeft">nm</ion-label>

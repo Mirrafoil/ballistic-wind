@@ -1,7 +1,76 @@
 <ion-header>
 </ion-header>
-
 <ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item class="white" lines="none">
+          <ion-label>Fall Type</ion-label>
+          <ion-select value="notifications" interface="action-sheet">
+            <ion-select-option value="enable">Standoff</ion-select-option>
+            <ion-select-option value="mute_week">Freefall</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="white" lines="none">
+          <ion-label position="floating">Drop Altitude</ion-label>
+          <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="white" lines="none">
+          <ion-label position="floating">Actual Altitude</ion-label>
+          <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="white" lines="none">
+          <ion-label position="floating">DZ Altitude</ion-label>
+          <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <p class="white noPaddingBottom">Sample Reference</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="white" lines="none">
+          <ion-label>Vertical Reference</ion-label>
+          <ion-select value="notifications" interface="action-sheet">
+            <ion-select-option value="enable">AMSL</ion-select-option>
+            <ion-select-option value="mute_week">AGL</ion-select-option>
+            <ion-select-option value="mute_week">FL</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item class="white" lines="none">
+          <ion-label position="floating">Drive</ion-label>
+          <ion-input required type="text" oninput="handleFirstNameValue(event)"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-item lines="none">
+      <ion-label class="white">Night Mode</ion-label>
+      <ion-toggle (ngModel)="chosenTheme" (ionChange)="onUpdateChangeTheme($event)" slot="end" color="light"
+        checked></ion-toggle>
+    </ion-item>
+  </ion-grid>
+
+
   <ion-card *ngIf="this.showAnswers" class="sizeAndOffset">
     <ion-card-content>
       <ion-grid>
@@ -110,13 +179,15 @@
       </ion-item-sliding>
       <ion-item color="danger" *ngIf="this.badFormSubmitted">
         <ion-text>
-          Please enter all values before continuing. 
+          Please enter all values before continuing.
         </ion-text>
       </ion-item>
     </div>
-    <ion-button *ngIf="this.showSubmitParameters" fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsSet()">Submit Drop Parameters
+    <ion-button *ngIf="this.showSubmitParameters" fill="solid" expand="full" color="secondary"
+      (click)="onSubmitDropSettingsSet()">Submit Drop Parameters
     </ion-button>
-    <ion-button *ngIf="!this.showSubmitParameters" fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsCalculate()">Calculate Drop Values
+    <ion-button *ngIf="!this.showSubmitParameters" fill="solid" expand="full" color="secondary"
+      (click)="onSubmitDropSettingsCalculate()">Calculate Drop Values
     </ion-button>
   </ion-list>
-  </ion-content>
+</ion-content>

@@ -21,20 +21,6 @@ ion-label{
   }
 }
 
-ion-item {
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 28px;
-  text-align: right;
-  &.white {
-    --background: #fff;
-  }
-
-  &.offwhite {
-    --color: #fff;
-  }
-}
-
 p {
   font-weight: bold;
   color: #fff;
