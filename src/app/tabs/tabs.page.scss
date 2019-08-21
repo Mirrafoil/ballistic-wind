@@ -1,3 +1,27 @@
-:root { 
+:root {
     --color-selected: var(--ion-color-light);
+}
+
+ion-tab-button {
+    &.settings {
+        --background: #4cbaff;
+        --color-selected: #fff;
+        --color: #000;
+    }
+
+    &.wind {
+        --background: #0099ff;
+        --color-selected: #fff;
+        --color: #000;
+    }
+
+    &.parachute {
+        --background: #006ab0;
+        --color-selected: #fff;
+        --color: #000;
+    }
+}
+
+ion-tab-bar {
+    border-top-width: 0px;
 }

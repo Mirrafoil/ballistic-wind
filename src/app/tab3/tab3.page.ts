@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  runInKM: number;
   constructor() {}
+
+  onChangePossibleRunIn(event) {
+    // console.log("Event Target Value: ",event.target.value);
+    this.runInKM = parseFloat((+event.target.value * 1.852).toFixed(2));
+  }
 }

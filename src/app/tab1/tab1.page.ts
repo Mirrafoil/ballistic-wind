@@ -16,7 +16,6 @@ export class Tab1Page {
   windData: WindData[];
   windDataSub: Subscription;
   possibleRunIn: number;
-  runInKM: number;
   altitudes = [];
   windAnalysis = [];
   windVector: number;
@@ -122,8 +121,8 @@ export class Tab1Page {
     }
   }
 
-  ionViewDidEnter(){
-   console.log('Did Enter');
+  ionViewDidEnter() {
+    console.log('Did Enter');
   }
 
   onSubmitDropSettingsSet() {
@@ -154,11 +153,7 @@ export class Tab1Page {
     const diveRatio = dataValues.diveRatio;
     // Calculate Drop Height
     const dropHeight =
-      1000 *
-      Math.floor(
-        (dropAltitude - dzElevation) / 1000 +
-          0.5
-      );
+      1000 * Math.floor((dropAltitude - dzElevation) / 1000 + 0.5);
     // Calculate step
     let step = 0;
     const start = 1000 * Math.floor(dzElevation / 1000 + 2);
@@ -183,12 +178,10 @@ export class Tab1Page {
     this.windDataService.passAltitudes(this.altitudes);
 
     // Gross Error Calculations
-    const dropHeightTrue =
-      dropAltitude - dzElevation;
+    const dropHeightTrue = dropAltitude - dzElevation;
     const dropHeightUpper = Math.ceil(dropHeightTrue / 1000) * 1000;
     const dropHeightLower = Math.floor(dropHeightTrue / 1000) * 1000;
-    const dzElevationRoundedDown =
-      Math.floor(dzElevation / 1000) * 1000;
+    const dzElevationRoundedDown = Math.floor(dzElevation / 1000) * 1000;
 
     // Build Array of WindAnalyis
     let northSouthTotal = 0;
@@ -444,8 +437,7 @@ export class Tab1Page {
     // Gross Error
     const dropHeightGrossError =
       altitudeSelectedElement[0].windDive * this.averageSpeed +
-      (diveRatio / 3.2) *
-        altitudeSelectedElement[0].canopyDrive;
+      (diveRatio / 3.2) * altitudeSelectedElement[0].canopyDrive;
 
     const upperGrossErrorElement = this.bt80.filter(obj => {
       return obj.altitude === dropHeightUpper;
@@ -475,11 +467,6 @@ export class Tab1Page {
   }
   radToDeg(rad) {
     return rad * (180 / Math.PI);
-  }
-
-  onChangePossibleRunIn(event) {
-    // console.log("Event Target Value: ",event.target.value);
-    this.runInKM = parseFloat((+event.target.value * 1.852).toFixed(3));
   }
 
   onUpdateWindDataCalcs(bt80DropSettings) {

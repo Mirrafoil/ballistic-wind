@@ -8,7 +8,7 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'bt80',
+        path: 'settings',
         children: [
           {
             path: '',
@@ -17,7 +17,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'bt380',
+        path: 'wind',
         children: [
           {
             path: '',
@@ -26,7 +26,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'freefall',
+        path: 'parachute',
         children: [
           {
             path: '',
@@ -36,14 +36,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/calc/bt80',
+        redirectTo: '/calc/settings',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/calc/bt80',
+    redirectTo: '/calc/settings',
     pathMatch: 'full'
   }
 ];

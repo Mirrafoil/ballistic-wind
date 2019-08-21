@@ -1,12 +1,46 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Freefallin'
-    </ion-title>
-  </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-grid padding class="bottomBorder">
+    <ion-row align-items-center>
+      <ion-col padding text-left>
+        <p>Freefall</p>
+        <p>Drop Alt: 16000’ AMSL</p>
+        <p>Actuation Alt: 6000’ AGL</p>
+        <p>DZ Elevation: 288’</p>
+        <p>Sample reference: AMSL</p>
+        <p>Drive: 2.5</p>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h1>Hi Bal: 289/20</h1>
+        <h1>Lo Bal: 233/13</h1>
+        <h1>CDWA: 12kts</h1>
+        <h1>Run-in: 242</h1>
+      </ion-col>
+    </ion-row>
+    <ion-list>
+      <ion-row class="paddingTop">
+        <ion-col size="5" offset="1">
+          <ion-item class="white" lines="none">
+            <ion-input type="number" [(ngModel)]="this.possibleRunIn" (ionInput)="onChangePossibleRunIn($event)">
+            </ion-input>
+            <ion-label class="paddingLeft">nm</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="5">
+          <ion-item class="offwhite" lines="none">
+            {{ this.runInKM }}
+            <ion-label class="ion-text-end">km</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-grid>
+
+</ion-content>

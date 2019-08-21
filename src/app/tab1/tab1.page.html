@@ -1,17 +1,4 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      HAHO BT80
-    </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="onSubmitDropSettingsSet()">
-        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -132,26 +119,4 @@
     <ion-button *ngIf="!this.showSubmitParameters" fill="solid" expand="full" color="secondary" (click)="onSubmitDropSettingsCalculate()">Calculate Drop Values
     </ion-button>
   </ion-list>
-  <ion-card *ngIf="this.showAnswers" class="sizeAndOffset">
-    <ion-card-content>
-      <ion-card-subtitle>Possible Run:</ion-card-subtitle>
-      <ion-list>
-        <ion-row>
-          <ion-col size="6">
-            <ion-item color="primary">
-              <ion-input type="number" [(ngModel)]="this.possibleRunIn" (ionInput)="onChangePossibleRunIn($event)">
-              </ion-input>
-              <ion-label>nm</ion-label>
-            </ion-item>
-          </ion-col>
-          <ion-col size="6">
-            <ion-item>
-              {{ this.runInKM }}
-              <ion-label slot="end" class="ion-text-end">km</ion-label>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-</ion-content>
+  </ion-content>

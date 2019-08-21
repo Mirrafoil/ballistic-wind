@@ -1,1 +1,48 @@
+ion-content {
+  --ion-background-color: #006ab0;
+}
 
+ion-grid {
+  &.bottomBorder {
+    border-bottom-width: 6px;
+    border-bottom: solid #fff;
+  }
+}
+
+ion-row {
+  &.paddingTop {
+    padding-top: 24px;
+  }
+}
+
+ion-label{
+  &.paddingLeft {
+    padding-left: 6px;
+  }
+}
+
+ion-item {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: right;
+  &.white {
+    --background: #fff;
+  }
+
+  &.offwhite {
+    --color: #fff;
+  }
+}
+
+p {
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 0px;
+  margin-top: 6px;
+}
+
+h1 {
+  font-weight: bold;
+  color: #fff;
+}
