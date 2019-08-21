@@ -4,6 +4,7 @@ import { WindDataService } from './../wind-data.service';
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { ThemeSwitcherService } from './../theme-switcher.service';
 
 @Component({
   selector: 'app-tab1',
@@ -34,10 +35,12 @@ export class Tab1Page {
   submitDropSettingsButtonText: string;
   badFormSubmitted = false;
   showSubmitParameters = true;
+  chosenTheme: string;
 
   constructor(
     private windDataService: WindDataService,
-    private router: Router
+    private router: Router,
+    public themeSwitcher: ThemeSwitcherService
   ) {}
 
   ngOnInit() {
@@ -93,6 +96,16 @@ export class Tab1Page {
 
     if (haveDropSettingsSet === true) {
       this.onSubmitDropSettingsSet();
+    }
+  
+    if (!localStorage.getItem('ballistic-settings-theme')) {
+      this.chosenTheme = 'daytime';
+      this.themeSwitcher.setTheme('daytime');
+      localStorage.setItem('ballistic-settings-theme', 'daytime');
+    } else {
+      this.chosenTheme = localStorage.getItem('ballistic-settings-theme');
+      this.themeSwitcher.setTheme(this.chosenTheme);
+      console.log('Chosen Theme Pulled: ', this.chosenTheme);
     }
   }
 
@@ -471,5 +484,15 @@ export class Tab1Page {
 
   onUpdateWindDataCalcs(bt80DropSettings) {
     console.log('Provided Data: ', bt80DropSettings);
+  }
+
+  onUpdateChangeTheme($event) {
+    this.chosenTheme = $event.target.value;
+    localStorage.setItem('ballistic-settings-theme', $event.target.value);
+    this.themeSwitcher.setTheme(this.chosenTheme);
+  }
+
+  onSubmitResetAllLocalStorage() {
+    localStorage.clear();
   }
 }

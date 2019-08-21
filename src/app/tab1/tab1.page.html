@@ -65,74 +65,75 @@
 
     <ion-item lines="none">
       <ion-label class="white">Night Mode</ion-label>
-      <ion-toggle (ngModel)="chosenTheme" (ionChange)="onUpdateChangeTheme($event)" slot="end" color="light"
-        checked></ion-toggle>
+      <ion-toggle (ngModel)="chosenTheme" (ionChange)="onUpdateChangeTheme($event)" slot="end" color="light" checked>
+      </ion-toggle>
     </ion-item>
+
+    <ion-button padding fill="solid" expand="full" color="danger" (click)="onSubmitResetAllLocalStorage()">Reset All
+      Local
+      Data
+    </ion-button>
   </ion-grid>
 
 
-  <ion-card *ngIf="this.showAnswers" class="sizeAndOffset">
-    <ion-card-content>
-      <ion-grid>
-        <ion-row align-items-center>
-          <ion-col text-center size="6">
-            <div class="square">
-              <div class="squareContent">
-                <ion-icon name="compass"></ion-icon>
-                <h1>{{ this.windVector | number: '3.0-0' }}&deg;</h1>
-              </div>
-            </div>
-          </ion-col>
-          <ion-col text-center size="6">
-            <div class="square">
-              <div class="squareContent">
-                <ion-icon name="speedometer"></ion-icon>
-                <h1>{{ this.averageSpeed | number: '2.0-2'}} kts</h1>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row align-items-center>
-          <ion-col text-center size="6">
-            <div class="square">
-              <div class="squareContent">
-                <span class="squareLargeText">CNI</span>
-                <h1>{{ this.CNI | number: '0.0-2'}} kts</h1>
-              </div>
-            </div>
-          </ion-col>
-          <ion-col text-center size="6">
-            <div class="square">
-              <div class="squareContent">
-                <ion-icon name="alarm"></ion-icon>
-                <h1>{{ this.timeCalculatedString }}</h1>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row align-items-center>
-          <ion-col text-center size="6">
-            <div class="square">
-              <div class="squareContent">
-                <span class="squareMediumText">Run-In</span>
-                <h1>{{ this.possRunInOne | number: '3.0-0' }}&deg;</h1>
-                <h1>{{ this.possRunInTwo | number: '3.0-0' }}&deg;</h1>
-              </div>
-            </div>
-          </ion-col>
-          <ion-col text-center size="6">
-            <div class="square">
-              <div class="squareContent">
-                <h1>GrossError: {{ this.grossError | number: '1.0-2'}}<span class="squareUnitText"> nm</span></h1>
-                <h1>{{ this.grossErrorYards }}<span class="squareUnitText"> yds</span></h1>
-                <h1> {{ this.grossErrorKM | number: '1.0-2'}}<span class="squareUnitText"> km</span></h1>
-              </div>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col text-center size="6">
+        <div class="square">
+          <div class="squareContent">
+            <ion-icon name="compass"></ion-icon>
+            <h1>{{ this.windVector | number: '3.0-0' }}&deg;</h1>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col text-center size="6">
+        <div class="square">
+          <div class="squareContent">
+            <ion-icon name="speedometer"></ion-icon>
+            <h1>{{ this.averageSpeed | number: '2.0-2'}} kts</h1>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row align-items-center>
+      <ion-col text-center size="6">
+        <div class="square">
+          <div class="squareContent">
+            <span class="squareLargeText">CNI</span>
+            <h1>{{ this.CNI | number: '0.0-2'}} kts</h1>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col text-center size="6">
+        <div class="square">
+          <div class="squareContent">
+            <ion-icon name="alarm"></ion-icon>
+            <h1>{{ this.timeCalculatedString }}</h1>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row align-items-center>
+      <ion-col text-center size="6">
+        <div class="square">
+          <div class="squareContent">
+            <span class="squareMediumText">Run-In</span>
+            <h1>{{ this.possRunInOne | number: '3.0-0' }}&deg;</h1>
+            <h1>{{ this.possRunInTwo | number: '3.0-0' }}&deg;</h1>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col text-center size="6">
+        <div class="square">
+          <div class="squareContent">
+            <h1>GrossError: {{ this.grossError | number: '1.0-2'}}<span class="squareUnitText"> nm</span></h1>
+            <h1>{{ this.grossErrorYards }}<span class="squareUnitText"> yds</span></h1>
+            <h1> {{ this.grossErrorKM | number: '1.0-2'}}<span class="squareUnitText"> km</span></h1>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   <ion-list padding class="sizeAndOffset">
     <div [formGroup]="form">
       <ion-item-sliding #slidingItem>
@@ -190,4 +191,3 @@
       (click)="onSubmitDropSettingsCalculate()">Calculate Drop Values
     </ion-button>
   </ion-list>
-</ion-content>
