@@ -6,21 +6,12 @@
       <ion-row>
         <ion-col>
           <ion-item class="white" lines="none">
-            <ion-select value="fallType" interface="action-sheet">
-              <ion-select-option value="enable">Standoff</ion-select-option>
-              <ion-select-option value="mute_week">Freefall</ion-select-option>
+            <ion-label>Jump Type</ion-label>
+            <ion-select value="jumpType" formControlName="jumpType" interface="action-sheet">
+              <ion-select-option value="Standoff">Standoff</ion-select-option>
+              <ion-select-option value="Freefall">Freefall</ion-select-option>
             </ion-select>
           </ion-item>
-          <ion-radio-group>
-              <ion-item class="white" lines="none">
-                <ion-label>Standoff</ion-label>
-                <ion-radio slot="start" value="apple"></ion-radio>
-              </ion-item>
-              <ion-item class="white" lines="none">
-                <ion-label>Freefall</ion-label>
-                <ion-radio slot="start" value="grape" checked></ion-radio>
-              </ion-item>
-            </ion-radio-group>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -35,7 +26,7 @@
         <ion-col>
           <ion-item class="white" lines="none">
             <ion-label position="floating">Actual Altitude</ion-label>
-            <ion-input required type="text" formControlName="dropAltitude"></ion-input>
+            <ion-input required type="number" formControlName="actualAltitude"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -43,7 +34,7 @@
         <ion-col>
           <ion-item class="white" lines="none">
             <ion-label position="floating">DZ Altitude</ion-label>
-            <ion-input type="number" formControlName="dropAltitude"></ion-input>
+            <ion-input type="number" formControlName="dzElevation"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -56,10 +47,10 @@
         <ion-col>
           <ion-item class="white" lines="none">
             <ion-label>Vertical Reference</ion-label>
-            <ion-select value="notifications" interface="action-sheet">
-              <ion-select-option value="enable">AMSL</ion-select-option>
-              <ion-select-option value="mute_week">AGL</ion-select-option>
-              <ion-select-option value="mute_week">FL</ion-select-option>
+            <ion-select value="notifications" interface="action-sheet" formControlName="verticalReference">
+              <ion-select-option value="AMSL">AMSL</ion-select-option>
+              <ion-select-option value="AGL">AGL</ion-select-option>
+              <ion-select-option value="FL">FL</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -84,78 +75,5 @@
         Data
       </ion-button>
     </ion-grid>
-
-
-    <ion-grid>
-      <ion-row align-items-center>
-        <ion-col text-center size="6">
-          <div class="square">
-            <div class="squareContent">
-              <ion-icon name="compass"></ion-icon>
-              <h1>{{ this.windVector | number: '3.0-0' }}&deg;</h1>
-            </div>
-          </div>
-        </ion-col>
-        <ion-col text-center size="6">
-          <div class="square">
-            <div class="squareContent">
-              <ion-icon name="speedometer"></ion-icon>
-              <h1>{{ this.averageSpeed | number: '2.0-2'}} kts</h1>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row align-items-center>
-        <ion-col text-center size="6">
-          <div class="square">
-            <div class="squareContent">
-              <span class="squareLargeText">CNI</span>
-              <h1>{{ this.CNI | number: '0.0-2'}} kts</h1>
-            </div>
-          </div>
-        </ion-col>
-        <ion-col text-center size="6">
-          <div class="square">
-            <div class="squareContent">
-              <ion-icon name="alarm"></ion-icon>
-              <h1>{{ this.timeCalculatedString }}</h1>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row align-items-center>
-        <ion-col text-center size="6">
-          <div class="square">
-            <div class="squareContent">
-              <span class="squareMediumText">Run-In</span>
-              <h1>{{ this.possRunInOne | number: '3.0-0' }}&deg;</h1>
-              <h1>{{ this.possRunInTwo | number: '3.0-0' }}&deg;</h1>
-            </div>
-          </div>
-        </ion-col>
-        <ion-col text-center size="6">
-          <div class="square">
-            <div class="squareContent">
-              <h1>GrossError: {{ this.grossError | number: '1.0-2'}}<span class="squareUnitText"> nm</span></h1>
-              <h1>{{ this.grossErrorYards }}<span class="squareUnitText"> yds</span></h1>
-              <h1> {{ this.grossErrorKM | number: '1.0-2'}}<span class="squareUnitText"> km</span></h1>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-list padding class="sizeAndOffset">
-      <ion-item color="danger" *ngIf="this.badFormSubmitted">
-        <ion-text>
-          Please enter all values before continuing.
-        </ion-text>
-      </ion-item>
-      <ion-button *ngIf="this.showSubmitParameters" fill="solid" expand="full" color="secondary"
-        (click)="onSubmitDropSettingsSet()">Submit Drop Parameters
-      </ion-button>
-      <ion-button *ngIf="!this.showSubmitParameters" fill="solid" expand="full" color="secondary"
-        (click)="onSubmitDropSettingsCalculate()">Calculate Drop Values
-      </ion-button>
-    </ion-list>
   </div>
 </ion-content>
