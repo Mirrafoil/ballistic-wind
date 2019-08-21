@@ -8,17 +8,17 @@
             <ion-col class="middleCol" size="4">Direction</ion-col>
             <ion-col size="4">Speed</ion-col>
         </ion-row>
-        <ion-row *ngFor="let altitude of altitudes; let i = index;" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+        <ion-row *ngFor="let altitude of windData; let i = index;" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
             <ion-col size="4" class="ion-text-center">
-                <ion-input required type="number" name=altitude{{i}} [(ngModel)]="altitudes[i]" placeholder="item">
+                <ion-input required type="number" [(ngModel)]="windData[i].altitude">
                 </ion-input>
             </ion-col>
             <ion-col class="middleCol ion-text-center" size="4">
-                <ion-input required type="number" name=direction{{i}} [(ngModel)]="altitudes[i]" placeholder="item">
+                <ion-input required type="number" [(ngModel)]="windData[i].direction">
                 </ion-input>
             </ion-col>
             <ion-col size="4" class="ion-text-center">
-                <ion-input required type="number" name=speed{{i}} [(ngModel)]="altitudes[i]" placeholder="item">
+                <ion-input required type="number" [(ngModel)]="windData[i].speed">
                 </ion-input>
             </ion-col>
         </ion-row>

@@ -20,40 +20,49 @@ export class Tab1Page {
   ) {}
 
   ngOnInit() {
+    let jumpTypeInitial = null;
+    let dropAltitudeInitial = null;
+    let actualAltitudeInitial = null;
+    let dzElevationInitial = null;
+    let diveRatioInitial = null;
+    let verticalReferenceInitial = null;
     // If settings stored locally, grab them
     if (localStorage.getItem('dropSettings') !== null) {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
       console.log('Loading  settings from localStorage', this.dropSettings);
-
-      this.form = new FormGroup({
-        jumpType: new FormControl(this.dropSettings['jumpType'], {
-          updateOn: 'blur',
-          validators: [Validators.required]
-        }),
-        dropAltitude: new FormControl(this.dropSettings['dropAltitude'], {
-          updateOn: 'blur',
-          validators: [Validators.required]
-        }),
-        actualAltitude: new FormControl(this.dropSettings['actualAltitude'], {
-          updateOn: 'blur',
-          validators: [Validators.required]
-        }),
-        dzElevation: new FormControl(this.dropSettings['dzElevation'], {
-          updateOn: 'blur',
-          validators: [Validators.required]
-        }),
-        diveRatio: new FormControl(this.dropSettings['diveRatio'], {
-          updateOn: 'blur',
-          validators: [Validators.required]
-        }),
-        verticalReference: new FormControl(
-          this.dropSettings['verticalReference'],
-          {
-            updateOn: 'blur'
-          }
-        )
-      });
+      jumpTypeInitial = this.dropSettings['jumpType'];
+      dropAltitudeInitial = this.dropSettings['dropAltitude'];
+      actualAltitudeInitial = this.dropSettings['actualAltitude'];
+      dzElevationInitial = this.dropSettings['dzElevatio'];
+      diveRatioInitial = this.dropSettings['diveRatio'];
+      verticalReferenceInitial = this.dropSettings['verticalReference'];
     }
+
+    this.form = new FormGroup({
+      jumpType: new FormControl(jumpTypeInitial, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      dropAltitude: new FormControl(dropAltitudeInitial, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      actualAltitude: new FormControl(actualAltitudeInitial, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      dzElevation: new FormControl(dzElevationInitial, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      diveRatio: new FormControl(diveRatioInitial, {
+        updateOn: 'blur',
+        validators: [Validators.required]
+      }),
+      verticalReference: new FormControl(verticalReferenceInitial, {
+        updateOn: 'blur'
+      })
+    });
   }
 
   ionViewWillLeave() {
@@ -74,7 +83,9 @@ export class Tab1Page {
     Object.keys(this.form.value).forEach(key => {
       dropSettings[key] = this.form.value[key];
     });
-    localStorage.setItem('dropSettings', JSON.stringify(dropSettings));
+    if (this.form.value.jumpType !== null) {
+      localStorage.setItem('dropSettings', JSON.stringify(dropSettings));
+    }
   }
 
   onUpdateChangeTheme($event) {

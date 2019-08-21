@@ -17,14 +17,20 @@ export class Tab2Page {
       // console.log('Loading windData from localStorage');
       this.windData = JSON.parse(localStorage.getItem('windData'));
     } else {
-      console.log('No windData set, setting altitudes');
-      this.defineAltitudes();
+      if (localStorage.getItem('dropSettings') !== null) {
+        console.log('No windData set, setting altitudes');
+        this.defineAltitudes();
+      }
     }
   }
 
   ionViewWillEnter() {
     if (localStorage.getItem('windData') !== null) {
-      this.defineAltitudes();
+      this.windData = JSON.parse(localStorage.getItem('windData'));
+    } else {
+      if (localStorage.getItem('dropSettings') !== null) {
+        this.defineAltitudes();
+      }
     }
   }
 
@@ -33,7 +39,8 @@ export class Tab2Page {
   }
 
   submitWindData() {
-    console.log('Submitting Wind Data');
+    localStorage.setItem('windData', JSON.stringify(this.windData));
+    console.log('Saving Wind Data');
   }
 
   defineAltitudes() {
@@ -94,6 +101,16 @@ export class Tab2Page {
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
+
+    for (var i = 0; i < this.altitudes.length; ++i) {
+      this.windData[i] = {
+        altitude: this.altitudes[i],
+        direction: null,
+        speed: null
+      };
+    }
+
     localStorage.setItem('ballistic-altitudes', JSON.stringify(this.altitudes));
+    localStorage.setItem('windData', JSON.stringify(this.windData));
   }
 }
