@@ -39,8 +39,10 @@ export class Tab2Page {
   }
 
   submitWindData() {
-    localStorage.setItem('windData', JSON.stringify(this.windData));
-    console.log('Saving Wind Data');
+    if (localStorage.getItem('dropSettings') !== null) {
+      localStorage.setItem('windData', JSON.stringify(this.windData));
+      console.log('Saving Wind Data');
+    }
   }
 
   defineAltitudes() {
