@@ -131,8 +131,6 @@ export class Tab2Page {
 
   updateWindDataAltitudes() {
     const storedwindData = JSON.parse(localStorage.getItem('windData'));
-    console.log(storedwindData.length);
-
     if (storedwindData.length > 0) {
       // Case that windData needs updating
       // Cycle through each altitude, keep data entered for altitudes, remove those that aren't

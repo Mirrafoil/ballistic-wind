@@ -30,6 +30,14 @@ export class Tab1Page {
     let diveRatioInitial = null;
     let verticalReferenceInitial = null;
 
+    if (localStorage.getItem('ballistic-settings-nighttheme') !== null) {
+      this.nightTheme = JSON.parse(
+        localStorage.getItem('ballistic-settings-nighttheme')
+      );
+    } else {
+      this.nightTheme = false;
+    }
+
     // If settings stored locally, grab them
     if (localStorage.getItem('dropSettings') !== null) {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
@@ -98,7 +106,10 @@ export class Tab1Page {
 
   onUpdateChangeTheme($event) {
     this.nightTheme = $event.detail.checked;
-    localStorage.setItem('ballistic-settings-theme', $event.detail.checked);
+    localStorage.setItem(
+      'ballistic-settings-nighttheme',
+      $event.detail.checked
+    );
     if (this.nightTheme === true) {
       this.themeSwitcher.setTheme('nighttime');
     } else {

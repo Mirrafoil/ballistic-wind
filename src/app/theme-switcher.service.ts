@@ -139,17 +139,10 @@ export class ThemeSwitcherService {
     ];
   }
 
-  cycleTheme(): void {
-    if (this.themes.length > this.currentTheme + 1) {
-      this.currentTheme++;
-    } else {
-      this.currentTheme = 0;
-    }
-
-    this.setTheme(this.themes[this.currentTheme].name);
-  }
-
   setTheme(name): void {
+    if (name === false) {
+      name === 'nighttime';
+    }
     let theme = this.themes.find(theme => theme.name === name);
 
     this.domCtrl.write(() => {
