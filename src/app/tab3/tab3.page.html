@@ -5,12 +5,12 @@
   <ion-grid padding class="bottomBorder">
     <ion-row align-items-center>
       <ion-col padding text-left>
-        <p>Freefall</p>
-        <p>Drop Alt: {{ this.dropAlt }}16000’ AMSL</p>
-        <p>Actuation Alt: {{ this.actuationAlt }}6000’ AGL</p>
-        <p>DZ Elevation: {{ this.dzElevation }}288’</p>
-        <p>Sample reference: AMSL</p>
-        <p>Drive: {{ this.drive }}2.5</p>
+        <p>{{ this.jumpType }}  </p>
+        <p>Drop Alt: {{ this.dropAltitude }}  AMSL</p>
+        <p>Actual Alt: {{ this.actualAltitude }} AGL</p>
+        <p>DZ Elevation: {{ this.dzElevation }}</p>
+        <p>Sample reference: {{ this.verticalReference }}</p>
+        <p>Drive: {{ this.diveRatio }} </p>
       </ion-col>
 
     </ion-row>

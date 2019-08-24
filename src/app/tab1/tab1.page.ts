@@ -2,6 +2,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeSwitcherService } from './../theme-switcher.service';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -12,20 +13,23 @@ export class Tab1Page {
   form: FormGroup;
   dropSettings = {};
   badFormSubmitted = false;
-  chosenTheme: string;
+  nightTheme: boolean;
+  showFreefall = false;
 
   constructor(
-    private router: Router,
-    public themeSwitcher: ThemeSwitcherService
+    public themeSwitcher: ThemeSwitcherService,
+    public eventsTab1: Events
   ) {}
 
   ngOnInit() {
+    // Set Initial Values For Form
     let jumpTypeInitial = null;
     let dropAltitudeInitial = null;
     let actualAltitudeInitial = null;
     let dzElevationInitial = null;
     let diveRatioInitial = null;
     let verticalReferenceInitial = null;
+
     // If settings stored locally, grab them
     if (localStorage.getItem('dropSettings') !== null) {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
@@ -33,9 +37,13 @@ export class Tab1Page {
       jumpTypeInitial = this.dropSettings['jumpType'];
       dropAltitudeInitial = this.dropSettings['dropAltitude'];
       actualAltitudeInitial = this.dropSettings['actualAltitude'];
-      dzElevationInitial = this.dropSettings['dzElevatio'];
+      dzElevationInitial = this.dropSettings['dzElevation'];
       diveRatioInitial = this.dropSettings['diveRatio'];
       verticalReferenceInitial = this.dropSettings['verticalReference'];
+
+      if (jumpTypeInitial === 'Freefall') {
+        this.showFreefall = true;
+      }
     }
 
     this.form = new FormGroup({
@@ -61,7 +69,7 @@ export class Tab1Page {
       }),
       verticalReference: new FormControl(verticalReferenceInitial, {
         updateOn: 'blur'
-      })
+      }) // AboveMeanSeaLevel AboveGroundLevel FlightLevel
     });
   }
 
@@ -89,13 +97,28 @@ export class Tab1Page {
   }
 
   onUpdateChangeTheme($event) {
-    this.chosenTheme = $event.target.value;
-    localStorage.setItem('ballistic-settings-theme', $event.target.value);
-    this.themeSwitcher.setTheme(this.chosenTheme);
+    this.nightTheme = $event.detail.checked;
+    localStorage.setItem('ballistic-settings-theme', $event.detail.checked);
+    if (this.nightTheme === true) {
+      this.themeSwitcher.setTheme('nighttime');
+    } else {
+      this.themeSwitcher.setTheme('daytime');
+    }
   }
 
   onSubmitResetAllLocalStorage() {
     localStorage.clear();
     this.form.reset();
+  }
+
+  onSubmitJumpTypeChanged($event) {
+    this.eventsTab1.publish('jump-type-changed', $event.detail.value);
+    localStorage.setItem('jumpType', $event.detail.value);
+    if ($event.detail.value === 'Freefall') {
+      this.showFreefall = true;
+    } else {
+      this.showFreefall = false;
+    }
+    // console.log('Jump type changed to', $event.detail.value);
   }
 }

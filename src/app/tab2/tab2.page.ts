@@ -1,3 +1,4 @@
+import { Events } from '@ionic/angular';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -9,8 +10,15 @@ import { FormsModule } from '@angular/forms';
 export class Tab2Page {
   altitudes = [];
   windData = [];
+  lastMessage: string;
 
-  constructor() {}
+  constructor(public eventsTab2: Events) {
+    this.eventsTab2.subscribe('jump-type-changed', data => {
+      console.log('Tab2: Jump Type Changed to ', data);
+      this.lastMessage = data;
+      this.defineAltitudes(data);
+    });
+  }
 
   ngOnInit() {
     if (localStorage.getItem('windData') !== null) {
@@ -18,8 +26,8 @@ export class Tab2Page {
       this.windData = JSON.parse(localStorage.getItem('windData'));
     } else {
       if (localStorage.getItem('dropSettings') !== null) {
-        console.log('No windData set, setting altitudes');
-        this.defineAltitudes();
+        const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
+        this.defineAltitudes(dropSettings.jumpType);
       }
     }
   }
@@ -27,9 +35,12 @@ export class Tab2Page {
   ionViewWillEnter() {
     if (localStorage.getItem('windData') !== null) {
       this.windData = JSON.parse(localStorage.getItem('windData'));
+      const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
+      this.defineAltitudes(dropSettings.jumpType);
     } else {
       if (localStorage.getItem('dropSettings') !== null) {
-        this.defineAltitudes();
+        const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
+        this.defineAltitudes(dropSettings.jumpType);
       }
     }
   }
@@ -41,19 +52,18 @@ export class Tab2Page {
   submitWindData() {
     if (localStorage.getItem('dropSettings') !== null) {
       localStorage.setItem('windData', JSON.stringify(this.windData));
-      console.log('Saving Wind Data');
+      // console.log('Saving Wind Data');
     }
   }
 
-  defineAltitudes() {
+  defineAltitudes(jumpType) {
     // Grab values from localStorage
     const dataValues = JSON.parse(localStorage.getItem('dropSettings'));
     const dropAltitude = dataValues.dropAltitude;
     const actualAltitude = dataValues.actualAltitude;
     const dzElevation = dataValues.dzElevation;
-    const jumpType = dataValues.jumpType;
 
-    console.log('Calculating Altitudes for ', jumpType);
+    console.log('Calculating Altitudes for', jumpType);
 
     let start = 0;
     let step = 0;
@@ -78,9 +88,13 @@ export class Tab2Page {
         }
         this.altitudes.push(altitude);
       }
+
+      // Fix to align with MS Excel
+      // this.altitudes.pop();
     } else {
       let altitude = 0;
       let i = 0;
+
       // Calculate Altitudes for Freefall
       while (altitude < dropAltitude) {
         if (actualAltitude > i * 1000) {
@@ -95,24 +109,62 @@ export class Tab2Page {
         i += 1;
         this.altitudes.push(altitude);
       }
-      // Fix to align with MS Excel
-      this.altitudes.pop();
     }
+
     this.altitudes = this.altitudes.filter(onlyUnique);
 
     function onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     }
 
-    for (var i = 0; i < this.altitudes.length; ++i) {
-      this.windData[i] = {
-        altitude: this.altitudes[i],
-        direction: null,
-        speed: null
-      };
+    this.updateWindDataAltitudes();
+
+    let currentBallisticAltitudes = null;
+    if (localStorage.getItem('ballistic-altitudes') !== null) {
+      currentBallisticAltitudes = JSON.parse(
+        localStorage.getItem('ballistic-altitudes')
+      );
     }
 
     localStorage.setItem('ballistic-altitudes', JSON.stringify(this.altitudes));
-    localStorage.setItem('windData', JSON.stringify(this.windData));
+  }
+
+  updateWindDataAltitudes() {
+    const storedwindData = JSON.parse(localStorage.getItem('windData'));
+    console.log(storedwindData.length);
+
+    if (storedwindData.length > 0) {
+      // Case that windData needs updating
+      // Cycle through each altitude, keep data entered for altitudes, remove those that aren't
+      let newWindData = [];
+      for (let i = 0; i < this.altitudes.length; ++i) {
+        const currentAlt = this.windData.filter(
+          a => a.altitude === this.altitudes[i]
+        );
+        if (currentAlt.length !== 0) {
+          newWindData[i] = {
+            altitude: this.altitudes[i],
+            direction: this.windData[i].direction,
+            speed: this.windData[i].speed
+          };
+        } else {
+          newWindData[i] = {
+            altitude: this.altitudes[i],
+            direction: null,
+            speed: null
+          };
+        }
+      }
+      this.windData = newWindData;
+    } else {
+      // Case that no windData is currently stored
+      for (let i = 0; i < this.altitudes.length; ++i) {
+        this.windData[i] = {
+          altitude: this.altitudes[i],
+          direction: null,
+          speed: null
+        };
+      }
+    }
   }
 }
