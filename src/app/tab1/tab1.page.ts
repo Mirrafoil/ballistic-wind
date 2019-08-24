@@ -1,6 +1,5 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ThemeSwitcherService } from './../theme-switcher.service';
 import { Events } from '@ionic/angular';
 

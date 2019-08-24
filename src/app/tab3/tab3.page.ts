@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab3',
@@ -24,7 +25,11 @@ export class Tab3Page {
   loBalAngle: number;
   lowBalspeed: number;
 
-  constructor() {}
+  constructor(public eventsTab2: Events) {
+    this.eventsTab2.subscribe('wind-data-changed', data => {
+      console.log('Tab3: Wind Data updated ', data);
+    });
+  }
 
   ngOnInit() {
     console.log(this.jumpType);
@@ -48,14 +53,12 @@ export class Tab3Page {
 
       // Calculate Paramaters for Display
       this.canclulateParameters();
-
     } else {
       this.jumpType = 'No Jump Type Defined';
     }
   }
 
   canclulateParameters() {
-
     // Get WindData that's stored...
     const windData = JSON.parse(localStorage.getItem('windData'));
 
@@ -116,8 +119,10 @@ export class Tab3Page {
     const drive = altitudeSelectedElement[0].kts;
     this.time = altitudeSelectedElement[0].time;
 
-    const driveCalculated = this.actualAltitude * 0.000425974025974 + 11.2770563;
-    const timeCalculated = this.actualAltitude * 0.0010896103896 + 1.94155844155844;
+    const driveCalculated =
+      this.actualAltitude * 0.000425974025974 + 11.2770563;
+    const timeCalculated =
+      this.actualAltitude * 0.0010896103896 + 1.94155844155844;
     this.timeCalculatedString =
       Math.round(timeCalculated).toString() +
       'min ' +
@@ -152,11 +157,11 @@ export class Tab3Page {
     const grossErrorKM = grossError * 1.852;
 
     // Freefall HI Bal / LO Bal
-    this.hiBalAngle
-    this.hiBalSpeed
+    this.hiBalAngle;
+    this.hiBalSpeed;
 
-    this.loBalAngle
-    this.lowBalspeed
+    this.loBalAngle;
+    this.lowBalspeed;
   }
 
   onChangePossibleRunIn(event) {

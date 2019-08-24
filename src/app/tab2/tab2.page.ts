@@ -1,6 +1,5 @@
 import { Events } from '@ionic/angular';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tab2',
@@ -47,6 +46,7 @@ export class Tab2Page {
 
   ionViewWillLeave() {
     this.submitWindData();
+    this.eventsTab2.publish('wind-data-changed', this.windData);
   }
 
   submitWindData() {
@@ -131,7 +131,7 @@ export class Tab2Page {
 
   updateWindDataAltitudes() {
     const storedwindData = JSON.parse(localStorage.getItem('windData'));
-    if (storedwindData.length > 0) {
+    if (storedwindData !== null) {
       // Case that windData needs updating
       // Cycle through each altitude, keep data entered for altitudes, remove those that aren't
       let newWindData = [];
