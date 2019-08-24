@@ -27,6 +27,12 @@ export class ThemeSwitcherService {
       {
         name: 'daytime',
         styles: [
+          { themeVariable: '--ion-color-tab1-bg', value: '#4cbaff' },
+          { themeVariable: '--ion-color-tab2-bg', value: '#0099ff' },
+          { themeVariable: '--ion-color-tab3-bg', value: '#006ab0' },
+          { themeVariable: '--ion-color-tab1-white-bg', value: '#ffffff'},
+          { themeVariable: '--ion-color-tab1-offwhite-bg', value: '#f2f2f2'},
+          { themeVariable: '--ion-color-tab1-labels', value: '#fff'},
           { themeVariable: '--ion-color-primary', value: '#3880ff' },
           { themeVariable: '--ion-color-primary-rgb', value: '56,128,255' },
           { themeVariable: '--ion-color-primary-contrast', value: '#ffffff' },
@@ -68,6 +74,12 @@ export class ThemeSwitcherService {
       {
         name: 'nighttime',
         styles: [
+          { themeVariable: '--ion-color-tab1-bg', value: '#545353' },
+          { themeVariable: '--ion-color-tab2-bg', value: '#878787' },
+          { themeVariable: '--ion-color-tab3-bg', value: '#cfcfcf' },
+          { themeVariable: '--ion-color-tab1-white-bg', value: '#2b2c2e'},
+          { themeVariable: '--ion-color-tab1-offwhite-bg', value: '#191919'},
+          { themeVariable: '--ion-color-tab1-labels', value: '#28FE14'},
           { themeVariable: '--ion-color-primary', value: '#000000' },
           { themeVariable: '--ion-color-primary-rgb', value: '0,0,0' },
           { themeVariable: '--ion-color-primary-shade', value: '#222428' },

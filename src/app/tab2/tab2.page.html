@@ -1,7 +1,7 @@
 <ion-header>
 
 </ion-header>
-<ion-content padding>
+<ion-content padding class="tab2Color">
     <ion-grid padding>
         <ion-row class="header ion-text-center">
             <ion-col size="4">Altitude</ion-col>
@@ -10,7 +10,7 @@
         </ion-row>
         <ion-row *ngFor="let altitude of windData; let i = index;" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
             <ion-col size="4" class="ion-text-center">
-                <ion-input required type="number" [(ngModel)]="windData[i].altitude" disabled>
+                <ion-input class="altitudeCol" required type="number" [(ngModel)]="windData[i].altitude" disabled>
                 </ion-input>
             </ion-col>
             <ion-col class="middleCol ion-text-center" size="4">

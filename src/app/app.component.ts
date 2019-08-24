@@ -22,6 +22,7 @@ export class AppComponent {
   initializeApp() {
     if (!localStorage.getItem('ballistic-settings-nighttheme')) {
       this.chosenTheme = 'daytime';
+      this.themeSwitcher.setTheme(this.chosenTheme);
       localStorage.setItem('ballistic-settings-nighttheme', 'false');
     } else {
       const chosenThemeSaved = localStorage.getItem(

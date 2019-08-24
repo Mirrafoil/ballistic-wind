@@ -12,19 +12,19 @@
 
 ion-item {
     font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
+    font-size: 20px;
+    line-height: 24px;
 
     &.alignRight {
         text-align: right;
     }
 
     &.white {
-        --background: #fff;
+        --background: var(--ion-color-tab1-white-bg);
     }
 
     &.offwhite {
-        --color: #fff;
+        --color: var(--ion-color-tab1-white-bg);
     }
 }
 
@@ -33,4 +33,64 @@ ion-icon {
         width: 42px;
         height: 42px;
     }
+}
+
+ion-content {
+    &.tab1Color {
+        --ion-background-color: var(--ion-color-tab1-bg);
+    }
+
+    &.tab2Color {
+        --ion-background-color: var(--ion-color-tab2-bg);
+    }
+
+    &.tab3Color {
+        --ion-background-color: var(--ion-color-tab3-bg);
+    }
+}
+
+ion-tab-button {
+    &.settings {
+        --background: var(--ion-color-tab1-bg);
+        --color-selected: #fff;
+        --color: #000;
+    }
+
+    &.wind {
+        --background: var(--ion-color-tab2-bg);
+        --color-selected: #fff;
+        --color: #000;
+    }
+
+    &.parachute {
+        --background: var(--ion-color-tab3-bg);
+        --color-selected: #fff;
+        --color: #000;
+    }
+}
+
+ion-row {
+    &.header {
+        font-weight: bold;
+        background-color: var(--ion-color-tab1-white-bg);
+        border-bottom: var(--ion-color-tab2-bg) solid 4px;
+    }
+}
+
+ion-col {
+    &.middleCol {
+        border-left: var(--ion-color-tab2-bg) solid 4px;
+        border-right: var(--ion-color-tab2-bg) solid 4px;
+    }
+}
+
+ion-toggle {
+    --background: var(--ion-color-tab1-labels);
+}	
+.odd {
+    background-color: var(--ion-color-tab1-white-bg);
+}
+
+.even {
+    background-color: var(--ion-color-tab1-offwhite-bg);
 }

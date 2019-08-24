@@ -1,6 +1,6 @@
 <ion-header>
 </ion-header>
-<ion-content padding>
+<ion-content padding class="tab1Color">
   <div [formGroup]="form">
     <ion-grid>
       <ion-row>
@@ -66,7 +66,7 @@
 
       <ion-item lines="none">
         <ion-label class="white">Night Mode</ion-label>
-        <ion-toggle (ngModel)="nightTheme" (ionChange)="onUpdateChangeTheme($event)" slot="end" color="light">
+        <ion-toggle (ngModel)="nightTheme" (ionChange)="onUpdateChangeTheme($event)" slot="end" color="light" [checked]="nightTheme">
         </ion-toggle>
       </ion-item>
 
