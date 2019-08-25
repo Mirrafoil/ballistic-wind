@@ -88,9 +88,6 @@ export class Tab2Page {
         }
         this.altitudes.push(altitude);
       }
-
-      // Fix to align with MS Excel
-      // this.altitudes.pop();
     } else {
       let altitude = 0;
       let i = 0;
@@ -108,6 +105,10 @@ export class Tab2Page {
         }
         i += 1;
         this.altitudes.push(altitude);
+      }
+      // Fix to align with MS Excel
+      if (this.altitudes[this.altitudes.length - 1] > dropAltitude) {
+        this.altitudes.pop();
       }
     }
 

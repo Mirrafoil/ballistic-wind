@@ -373,8 +373,6 @@ export class Tab3Page {
     const grossErrorKM = this.grossError * 1.852;
 
     // Calculate Freefall
-
-    // Calculate LoBal
     let windAnalysisFreefall = [];
     let windAnalysisFreefallElement = [];
     let elementI = 0;
@@ -385,7 +383,6 @@ export class Tab3Page {
     let countHiBal = 0;
     let countLoBal = 0;
 
-    console.log(this.actualAltitude);
     windData.forEach(element => {
       const northSouth =
         Math.cos(this.degToRad(+element.direction)) * element.speed;
@@ -419,8 +416,8 @@ export class Tab3Page {
       Math.pow(northSouthHiBalTotal, 2) + Math.pow(eastWestHiBalTotal, 2)
     );
 
-    this.hiBalSpeed = totalSpeedLoBal / countLoBal;
-    this.loBalSpeed = totalSpeedHiBal / countHiBal;
+    this.hiBalSpeed = totalSpeedHiBal / countHiBal;
+    this.loBalSpeed = totalSpeedLoBal / countLoBal;
 
     const windVectorInitialLoBal = this.radToDeg(
       Math.acos(northSouthLoBalTotal / totalSpeedLoBal)
