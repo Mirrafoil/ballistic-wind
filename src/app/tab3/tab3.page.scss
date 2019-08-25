@@ -1,7 +1,7 @@
 ion-grid {
   &.bottomBorder {
     border-bottom-width: 6px;
-    border-bottom: solid #fff;
+    border-bottom: solid var(--ion-color-tab1-white-bg);
   }
 }
 
@@ -19,12 +19,12 @@ ion-label{
 
 p {
   font-weight: bold;
-  color: #fff;
+  color: var(--ion-color-tab1-white-bg);
   margin-bottom: 0px;
   margin-top: 6px;
 }
 
 h1 {
   font-weight: bold;
-  color: #fff;
+  color: var(--ion-color-tab1-white-bg);
 }

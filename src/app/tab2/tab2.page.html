@@ -10,15 +10,15 @@
         </ion-row>
         <ion-row *ngFor="let altitude of windData; let i = index;" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
             <ion-col size="4" class="ion-text-center">
-                <ion-input class="altitudeCol" required type="number" [(ngModel)]="windData[i].altitude" disabled>
+                <ion-input class="altitudeCol" required type="number" [(ngModel)]="windData[i].altitude" readonly>
                 </ion-input>
             </ion-col>
             <ion-col class="middleCol ion-text-center" size="4">
-                <ion-input required type="number" [(ngModel)]="windData[i].direction">
+                <ion-input required type="number" inputmode="numeric" [(ngModel)]="windData[i].direction">
                 </ion-input>
             </ion-col>
             <ion-col size="4" class="ion-text-center">
-                <ion-input required type="number" [(ngModel)]="windData[i].speed">
+                <ion-input required type="number" inputmode="numeric" [(ngModel)]="windData[i].speed">
                 </ion-input>
             </ion-col>
         </ion-row>
