@@ -63,7 +63,7 @@ export class Tab2Page {
     const actualAltitude = dataValues.actualAltitude;
     const dzElevation = dataValues.dzElevation;
 
-    console.log('Calculating Altitudes for', jumpType);
+    // console.log('Calculating Altitudes for', jumpType);
 
     let start = 0;
     let step = 0;
