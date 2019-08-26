@@ -118,7 +118,7 @@ export class Tab2Page {
       return self.indexOf(value) === index;
     }
 
-    this.updateWindDataAltitudes(this.altitudes);
+    this.updateWindDataAltitudes();
 
     let currentBallisticAltitudes = null;
     if (localStorage.getItem('ballistic-altitudes') !== null) {
@@ -130,37 +130,44 @@ export class Tab2Page {
     localStorage.setItem('ballistic-altitudes', JSON.stringify(this.altitudes));
   }
 
-  updateWindDataAltitudes(altitudes) {
+  updateWindDataAltitudes() {
     const storedwindData = JSON.parse(localStorage.getItem('windData'));
     if (storedwindData !== null) {
       // Case that windData needs updating
       // Cycle through each altitude, keep data entered for altitudes, remove those that aren't
       let newWindData = [];
-      // console.log(altitudes);
-      for (let i = 0; i < altitudes.length; ++i) {
-        const currentAlt = this.windData.filter(
-          a => a.altitude === altitudes[i]
+      for (let i = 0; i < this.altitudes.length; ++i) {
+        const foundAltI = this.windData.findIndex(
+          a => a.altitude === this.altitudes[i]
         );
-        if (currentAlt.length !== 0) {
+        if (foundAltI === -1) {
           newWindData[i] = {
-            altitude: altitudes[i],
-            direction: currentAlt['direction'],
-            speed: currentAlt['speed']
-          };
-        } else {
-          newWindData[i] = {
-            altitude: altitudes[i],
+            altitude: this.altitudes[i],
             direction: null,
             speed: null
           };
+        } else {
+          if (this.windData.length > foundAltI) {
+            newWindData[i] = {
+              altitude: this.altitudes[i],
+              direction: this.windData[foundAltI].direction,
+              speed: this.windData[foundAltI].speed
+            };
+          } else {
+            newWindData[i] = {
+              altitude: this.altitudes[i],
+              direction: null,
+              speed: null
+            };
+          }
         }
       }
       this.windData = newWindData;
     } else {
       // Case that no windData is currently stored
-      for (let i = 0; i < altitudes.length; ++i) {
+      for (let i = 0; i < this.altitudes.length; ++i) {
         this.windData[i] = {
-          altitude: altitudes[i],
+          altitude: this.altitudes[i],
           direction: null,
           speed: null
         };

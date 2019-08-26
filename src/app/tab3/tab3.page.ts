@@ -378,12 +378,12 @@ export class Tab3Page {
     // to closest thousand
     const closest10k =
       Math.round(this.dropAltitude / 1000 - this.dzElevation / 1000) * 1000;
-    const canopyDrive = this.bt80.find(function(element) {
-      return element.altitude === closest10k;
-    });
+    const canopyDrive = this.bt80.find(
+      element => element.altitude === closest10k
+    );
     this.driveDisplay = (canopyDrive.kts * this.driveRatio) / 2.7;
     this.descentTime = canopyDrive.time;
-    
+
     // Calculate Freefall
     let windAnalysisFreefall = [];
     let windAnalysisFreefallElement = [];
@@ -420,6 +420,8 @@ export class Tab3Page {
       windAnalysisFreefall.push(windAnalysisFreefallElement);
       elementI += 1;
     });
+
+    console.log(windData);
 
     const totalSpeedLoBal = Math.sqrt(
       Math.pow(northSouthLoBalTotal, 2) + Math.pow(eastWestLoBalTotal, 2)
