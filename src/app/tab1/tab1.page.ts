@@ -26,7 +26,7 @@ export class Tab1Page {
     let dropAltitudeInitial = null;
     let actualAltitudeInitial = null;
     let dzElevationInitial = null;
-    let diveRatioInitial = null;
+    let driveRatioInitial = null;
     let verticalReferenceInitial = null;
 
     if (localStorage.getItem('ballistic-settings-nighttheme') !== null) {
@@ -45,7 +45,7 @@ export class Tab1Page {
       dropAltitudeInitial = this.dropSettings['dropAltitude'];
       actualAltitudeInitial = this.dropSettings['actualAltitude'];
       dzElevationInitial = this.dropSettings['dzElevation'];
-      diveRatioInitial = this.dropSettings['diveRatio'];
+      driveRatioInitial = this.dropSettings['driveRatio'];
       verticalReferenceInitial = this.dropSettings['verticalReference'];
 
       if (jumpTypeInitial === 'Freefall') {
@@ -70,7 +70,7 @@ export class Tab1Page {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      diveRatio: new FormControl(diveRatioInitial, {
+      driveRatio: new FormControl(driveRatioInitial, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),

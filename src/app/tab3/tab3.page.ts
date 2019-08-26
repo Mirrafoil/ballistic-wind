@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component } from '@angular/core';
 import { Events } from '@ionic/angular';
 
@@ -12,7 +13,7 @@ export class Tab3Page {
   dropAltitude: number;
   actualAltitude: number;
   dzElevation: number;
-  diveRatio: number;
+  driveRatio: number;
   verticalReference: string;
   averageSpeed: number;
   windVector: number;
@@ -33,7 +34,7 @@ export class Tab3Page {
     kts: number;
     windSpeed20kt: number;
     windSpeed40kt: number;
-    windDive: number;
+    windDrive: number;
     canopyDrive: number;
     time: number;
   }[];
@@ -42,6 +43,8 @@ export class Tab3Page {
   grossError: number;
   windVectorLoBal: number;
   windVectorHiBal: number;
+  driveDisplay: number;
+  descentTime: number;
 
   constructor(public eventsTab2: Events) {
     this.eventsTab2.subscribe('wind-data-changed', data => {
@@ -56,7 +59,7 @@ export class Tab3Page {
         kts: 11,
         windSpeed20kt: 3.5,
         windSpeed40kt: 5.6,
-        windDive: 0.105,
+        windDrive: 0.105,
         canopyDrive: 1.4,
         time: 7
       },
@@ -65,7 +68,7 @@ export class Tab3Page {
         kts: 13,
         windSpeed20kt: 4.4,
         windSpeed40kt: 6.9,
-        windDive: 0.125,
+        windDrive: 0.125,
         canopyDrive: 1.9,
         time: 8
       },
@@ -74,7 +77,7 @@ export class Tab3Page {
         kts: 14,
         windSpeed20kt: 5.3,
         windSpeed40kt: 8.15,
-        windDive: 0.1425,
+        windDrive: 0.1425,
         canopyDrive: 2.45,
         time: 9
       },
@@ -83,7 +86,7 @@ export class Tab3Page {
         kts: 15,
         windSpeed20kt: 6.2,
         windSpeed40kt: 9.4,
-        windDive: 0.16,
+        windDrive: 0.16,
         canopyDrive: 3,
         time: 10.5
       },
@@ -92,7 +95,7 @@ export class Tab3Page {
         kts: 15.5,
         windSpeed20kt: 7.1,
         windSpeed40kt: 10.7,
-        windDive: 0.18,
+        windDrive: 0.18,
         canopyDrive: 3.5,
         time: 12
       },
@@ -101,7 +104,7 @@ export class Tab3Page {
         kts: 16,
         windSpeed20kt: 8,
         windSpeed40kt: 12,
-        windDive: 0.2,
+        windDrive: 0.2,
         canopyDrive: 4,
         time: 13
       },
@@ -110,7 +113,7 @@ export class Tab3Page {
         kts: 16.5,
         windSpeed20kt: 8.9,
         windSpeed40kt: 13.25,
-        windDive: 0.2175,
+        windDrive: 0.2175,
         canopyDrive: 4.55,
         time: 14
       },
@@ -119,7 +122,7 @@ export class Tab3Page {
         kts: 17,
         windSpeed20kt: 9.8,
         windSpeed40kt: 14.5,
-        windDive: 0.235,
+        windDrive: 0.235,
         canopyDrive: 5.1,
         time: 15
       },
@@ -128,7 +131,7 @@ export class Tab3Page {
         kts: 17.5,
         windSpeed20kt: 10.7,
         windSpeed40kt: 15.7,
-        windDive: 0.25,
+        windDrive: 0.25,
         canopyDrive: 5.7,
         time: 16
       },
@@ -137,7 +140,7 @@ export class Tab3Page {
         kts: 18,
         windSpeed20kt: 11.6,
         windSpeed40kt: 16.9,
-        windDive: 0.265,
+        windDrive: 0.265,
         canopyDrive: 6.3,
         time: 17.5
       },
@@ -146,7 +149,7 @@ export class Tab3Page {
         kts: 18.5,
         windSpeed20kt: 12.45,
         windSpeed40kt: 18.1,
-        windDive: 0.2825,
+        windDrive: 0.2825,
         canopyDrive: 6.8,
         time: 19
       },
@@ -155,7 +158,7 @@ export class Tab3Page {
         kts: 19,
         windSpeed20kt: 13.3,
         windSpeed40kt: 19.3,
-        windDive: 0.3,
+        windDrive: 0.3,
         canopyDrive: 7.3,
         time: 20
       },
@@ -164,7 +167,7 @@ export class Tab3Page {
         kts: 19,
         windSpeed20kt: 14.15,
         windSpeed40kt: 20.45,
-        windDive: 0.315,
+        windDrive: 0.315,
         canopyDrive: 7.85,
         time: 21
       },
@@ -173,7 +176,7 @@ export class Tab3Page {
         kts: 19,
         windSpeed20kt: 15,
         windSpeed40kt: 21.6,
-        windDive: 0.33,
+        windDrive: 0.33,
         canopyDrive: 8.4,
         time: 22
       },
@@ -182,7 +185,7 @@ export class Tab3Page {
         kts: 19.5,
         windSpeed20kt: 15.85,
         windSpeed40kt: 22.75,
-        windDive: 0.345,
+        windDrive: 0.345,
         canopyDrive: 8.95,
         time: 23
       },
@@ -191,7 +194,7 @@ export class Tab3Page {
         kts: 20,
         windSpeed20kt: 16.7,
         windSpeed40kt: 23.9,
-        windDive: 0.36,
+        windDrive: 0.36,
         canopyDrive: 9.5,
         time: 24
       },
@@ -200,7 +203,7 @@ export class Tab3Page {
         kts: 20,
         windSpeed20kt: 17.5,
         windSpeed40kt: 25.05,
-        windDive: 0.3775,
+        windDrive: 0.3775,
         canopyDrive: 9.95,
         time: 25
       },
@@ -209,7 +212,7 @@ export class Tab3Page {
         kts: 20,
         windSpeed20kt: 18.3,
         windSpeed40kt: 26.2,
-        windDive: 0.395,
+        windDrive: 0.395,
         canopyDrive: 10.4,
         time: 25.5
       },
@@ -218,7 +221,7 @@ export class Tab3Page {
         kts: 20.5,
         windSpeed20kt: 19.1,
         windSpeed40kt: 27.3,
-        windDive: 0.41,
+        windDrive: 0.41,
         canopyDrive: 10.9,
         time: 26
       },
@@ -227,7 +230,7 @@ export class Tab3Page {
         kts: 21,
         windSpeed20kt: 19.9,
         windSpeed40kt: 28.4,
-        windDive: 0.425,
+        windDrive: 0.425,
         canopyDrive: 11.4,
         time: 27.5
       },
@@ -236,7 +239,7 @@ export class Tab3Page {
         kts: 21,
         windSpeed20kt: 20.8,
         windSpeed40kt: 29.5,
-        windDive: 0.435,
+        windDrive: 0.435,
         canopyDrive: 12.1,
         time: 29
       }
@@ -249,7 +252,7 @@ export class Tab3Page {
       this.jumpType = dropSettings['jumpType'];
       this.dropAltitude = dropSettings['dropAltitude'];
       this.dzElevation = dropSettings['dzElevation'];
-      this.diveRatio = dropSettings['diveRatio'];
+      this.driveRatio = dropSettings['driveRatio'];
       this.verticalReference = dropSettings['verticalReference'];
 
       // Actual Altitude only provided for Freefall
@@ -348,22 +351,22 @@ export class Tab3Page {
 
     // Gross Error
     const dropHeightGrossError =
-      altitudeSelectedElement[0].windDive * this.averageSpeed +
-      (this.diveRatio / 3.2) * altitudeSelectedElement[0].canopyDrive;
+      altitudeSelectedElement[0].windDrive * this.averageSpeed +
+      (this.driveRatio / 3.2) * altitudeSelectedElement[0].canopyDrive;
 
     const upperGrossErrorElement = this.bt80.filter(obj => {
       return obj.altitude === dropHeightUpper;
     });
     const upperGrossError =
-      upperGrossErrorElement[0].windDive * this.averageSpeed +
-      (this.diveRatio / 3.2) * upperGrossErrorElement[0].canopyDrive;
+      upperGrossErrorElement[0].windDrive * this.averageSpeed +
+      (this.driveRatio / 3.2) * upperGrossErrorElement[0].canopyDrive;
 
     const lowerGrossErrorElement = this.bt80.filter(obj => {
       return obj.altitude === dropHeightLower;
     });
     const lowerGrossError =
-      lowerGrossErrorElement[0].windDive * this.averageSpeed +
-      (this.diveRatio / 3.2) * lowerGrossErrorElement[0].canopyDrive;
+      lowerGrossErrorElement[0].windDrive * this.averageSpeed +
+      (this.driveRatio / 3.2) * lowerGrossErrorElement[0].canopyDrive;
 
     this.grossError =
       upperGrossError -
@@ -372,6 +375,15 @@ export class Tab3Page {
     const grossErrorYards = Math.round(this.grossError * 2025.372);
     const grossErrorKM = this.grossError * 1.852;
 
+    // to closest thousand
+    const closest10k =
+      Math.round(this.dropAltitude / 1000 - this.dzElevation / 1000) * 1000;
+    const canopyDrive = this.bt80.find(function(element) {
+      return element.altitude === closest10k;
+    });
+    this.driveDisplay = (canopyDrive.kts * this.driveRatio) / 2.7;
+    this.descentTime = canopyDrive.time;
+    
     // Calculate Freefall
     let windAnalysisFreefall = [];
     let windAnalysisFreefallElement = [];

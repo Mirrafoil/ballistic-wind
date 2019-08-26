@@ -10,7 +10,7 @@
         <p *ngIf="showFreefall">Actual Alt: {{ this.actualAltitude }}' AGL</p>
         <p>DZ Elevation: {{ this.dzElevation }}'</p>
         <p>Sample reference: {{ this.verticalReference }}</p>
-        <p>Drive: {{ this.diveRatio }} </p>
+        <p>Drive Ratio: {{ this.driveRatio }} </p>
       </ion-col>
 
     </ion-row>
@@ -24,6 +24,7 @@
           {{ this.possRunInTwo | number: '3.0-1' }}&deg;</h1>
         <h1 *ngIf="showStandoff">CNI: {{ this.CNI | number: '1.0-0' }}kts</h1>
         <h1 *ngIf="showStandoff">Gross Error: {{ this.grossError | number: '1.0-1' }}nm</h1>
+        <h1 *ngIf="showStandoff">Drive: {{ this.driveDisplay | number: '1.0-0' }}kts</h1>
         <h1 *ngIf="showFreefall">Hi Bal:
           {{ this.hiBalAngle | number: '3.0-1' }}&deg; {{ this.hiBalSpeed | number: '1.0-1' }}kts</h1>
         <h1 *ngIf="showFreefall">Lo Bal:

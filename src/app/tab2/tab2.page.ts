@@ -136,7 +136,7 @@ export class Tab2Page {
       // Case that windData needs updating
       // Cycle through each altitude, keep data entered for altitudes, remove those that aren't
       let newWindData = [];
-      console.log(altitudes);
+      // console.log(altitudes);
       for (let i = 0; i < altitudes.length; ++i) {
         const currentAlt = this.windData.filter(
           a => a.altitude === altitudes[i]
