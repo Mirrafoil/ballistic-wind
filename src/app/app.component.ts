@@ -20,13 +20,19 @@ export class AppComponent {
   }
 
   initializeApp() {
-    if (!localStorage.getItem('ballistic-settings-theme')) {
+    if (!localStorage.getItem('ballistic-settings-nighttheme')) {
       this.chosenTheme = 'daytime';
-      localStorage.setItem('ballistic-settings-theme', this.chosenTheme);
-      console.log('No Theme saved, defaulting');
+      this.themeSwitcher.setTheme(this.chosenTheme);
+      localStorage.setItem('ballistic-settings-nighttheme', 'false');
     } else {
-      this.chosenTheme = localStorage.getItem('ballistic-settings-theme');
-      console.log('Loading Theme: ', this.chosenTheme);
+      const chosenThemeSaved = localStorage.getItem(
+        'ballistic-settings-nighttheme'
+      );
+      if (chosenThemeSaved === 'false') {
+        this.chosenTheme = 'daytime';
+      } else {
+        this.chosenTheme = 'nighttime';
+      }
       this.themeSwitcher.setTheme(this.chosenTheme);
     }
     this.platform.ready().then(() => {

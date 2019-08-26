@@ -1,1 +1,30 @@
+ion-grid {
+  &.bottomBorder {
+    border-bottom-width: 6px;
+    border-bottom: solid var(--ion-color-tab1-white-bg);
+  }
+}
 
+ion-row {
+  &.paddingTop {
+    padding-top: 24px;
+  }
+}
+
+ion-label{
+  &.paddingLeft {
+    padding-left: 6px;
+  }
+}
+
+p {
+  font-weight: bold;
+  color: var(--ion-color-tab1-white-bg);
+  margin-bottom: 0px;
+  margin-top: 6px;
+}
+
+h1 {
+  font-weight: bold;
+  color: var(--ion-color-tab1-white-bg);
+}

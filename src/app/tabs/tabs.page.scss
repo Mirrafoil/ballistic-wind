@@ -1,3 +1,7 @@
-:root { 
+:root {
     --color-selected: var(--ion-color-light);
+}
+
+ion-tab-bar {
+    border-top-width: 0px;
 }
