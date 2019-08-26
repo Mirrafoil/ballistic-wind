@@ -25,16 +25,16 @@
         <h1 *ngIf="showStandoff">CNI: {{ this.CNI | number: '1.0-0' }}kts</h1>
         <h1 *ngIf="showStandoff">Gross Error: {{ this.grossError | number: '1.0-1' }}nm</h1>
         <h1 *ngIf="showFreefall">Hi Bal:
-          {{ this.hiBalAngle | number: '3.0-1' }}&deg;/{{ this.hiBalSpeed | number: '1.0-1' }}kts</h1>
+          {{ this.hiBalAngle | number: '3.0-1' }}&deg; {{ this.hiBalSpeed | number: '1.0-1' }}kts</h1>
         <h1 *ngIf="showFreefall">Lo Bal:
-          {{ this.loBalAngle | number: '3.0-1' }}&deg;/{{ this.loBalSpeed | number: '1.0-1' }}kts</h1>
+          {{ this.loBalAngle | number: '3.0-1' }}&deg; {{ this.loBalSpeed | number: '1.0-1' }}kts</h1>
       </ion-col>
     </ion-row>
     <ion-list>
       <ion-row class="paddingTop">
         <ion-col size="5" offset="1">
           <ion-item class="white alignRight" lines="none">
-            <ion-input type="number" [(ngModel)]="this.possibleRunIn" (ionInput)="onChangePossibleRunIn($event)">
+            <ion-input type="number" (ionInput)="onChangePossibleRunIn($event)">
             </ion-input>
             <ion-label class="paddingLeft">nm</ion-label>
           </ion-item>

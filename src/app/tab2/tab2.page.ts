@@ -118,7 +118,7 @@ export class Tab2Page {
       return self.indexOf(value) === index;
     }
 
-    this.updateWindDataAltitudes();
+    this.updateWindDataAltitudes(this.altitudes);
 
     let currentBallisticAltitudes = null;
     if (localStorage.getItem('ballistic-altitudes') !== null) {
@@ -130,25 +130,26 @@ export class Tab2Page {
     localStorage.setItem('ballistic-altitudes', JSON.stringify(this.altitudes));
   }
 
-  updateWindDataAltitudes() {
+  updateWindDataAltitudes(altitudes) {
     const storedwindData = JSON.parse(localStorage.getItem('windData'));
     if (storedwindData !== null) {
       // Case that windData needs updating
       // Cycle through each altitude, keep data entered for altitudes, remove those that aren't
       let newWindData = [];
-      for (let i = 0; i < this.altitudes.length; ++i) {
+      console.log(altitudes);
+      for (let i = 0; i < altitudes.length; ++i) {
         const currentAlt = this.windData.filter(
-          a => a.altitude === this.altitudes[i]
+          a => a.altitude === altitudes[i]
         );
         if (currentAlt.length !== 0) {
           newWindData[i] = {
-            altitude: this.altitudes[i],
-            direction: this.windData[i].direction,
-            speed: this.windData[i].speed
+            altitude: altitudes[i],
+            direction: currentAlt['direction'],
+            speed: currentAlt['speed']
           };
         } else {
           newWindData[i] = {
-            altitude: this.altitudes[i],
+            altitude: altitudes[i],
             direction: null,
             speed: null
           };
@@ -157,9 +158,9 @@ export class Tab2Page {
       this.windData = newWindData;
     } else {
       // Case that no windData is currently stored
-      for (let i = 0; i < this.altitudes.length; ++i) {
+      for (let i = 0; i < altitudes.length; ++i) {
         this.windData[i] = {
-          altitude: this.altitudes[i],
+          altitude: altitudes[i],
           direction: null,
           speed: null
         };

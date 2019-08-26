@@ -18,6 +18,8 @@ npm-debug.log*
 .sass-cache/
 .tmp/
 .versions/
+android/
+ios/
 coverage/
 www/
 node_modules/
@@ -28,6 +30,7 @@ plugins/
 plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
+
 
 .DS_Store
 Thumbs.db

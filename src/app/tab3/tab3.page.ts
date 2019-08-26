@@ -45,7 +45,7 @@ export class Tab3Page {
 
   constructor(public eventsTab2: Events) {
     this.eventsTab2.subscribe('wind-data-changed', data => {
-      console.log('Tab3: Wind Data updated ', data);
+      // console.log('Tab3: Wind Data updated ', data);
     });
   }
 
