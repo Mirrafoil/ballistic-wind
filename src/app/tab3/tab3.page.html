@@ -18,17 +18,17 @@
   <ion-grid>
     <ion-row>
       <ion-col text-center>
-        <h1 *ngIf="showStandoff">Wind Vector: {{ this.windVector | number: '3.0-1' }}&deg;
-          {{ this.averageSpeed | number: '1.0-1' }}kts</h1>
-        <h1 *ngIf="showStandoff">Run In: {{ this.possRunInOne | number: '3.0-1' }}&deg; or
-          {{ this.possRunInTwo | number: '3.0-1' }}&deg;</h1>
+        <h1 *ngIf="showStandoff">Wind Vector: {{ this.windVector | number: '3.0-0' }}&deg;
+          {{ this.averageSpeed | number: '1.0-0' }}kts</h1>
+        <h1 *ngIf="showStandoff">Run In: {{ this.possRunInOne | number: '3.0-0' }}&deg; or
+          {{ this.possRunInTwo | number: '3.0-0' }}&deg;</h1>
         <h1 *ngIf="showStandoff">CNI: {{ this.CNI | number: '1.0-0' }}kts</h1>
         <h1 *ngIf="showStandoff">Gross Error: {{ this.grossError | number: '1.0-1' }}nm</h1>
         <h1 *ngIf="showStandoff">Drive: {{ this.driveDisplay | number: '1.0-0' }}kts</h1>
         <h1 *ngIf="showFreefall">Hi Bal:
-          {{ this.hiBalAngle | number: '3.0-1' }}&deg; {{ this.hiBalSpeed | number: '1.0-1' }}kts</h1>
+          {{ this.hiBalAngle | number: '3.0-0' }}&deg; {{ this.hiBalSpeed | number: '1.0-0' }}kts</h1>
         <h1 *ngIf="showFreefall">Lo Bal:
-          {{ this.loBalAngle | number: '3.0-1' }}&deg; {{ this.loBalSpeed | number: '1.0-1' }}kts</h1>
+          {{ this.loBalAngle | number: '3.0-0' }}&deg; {{ this.loBalSpeed | number: '1.0-0' }}kts</h1>
       </ion-col>
     </ion-row>
     <ion-list>
