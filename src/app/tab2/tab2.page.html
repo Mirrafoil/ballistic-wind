@@ -15,12 +15,13 @@
             </ion-col>
             <ion-col class="middleCol ion-text-center" size="4">
                 <ion-input class="directionInput" required type="number" inputmode="numeric"
-                    [(ngModel)]="windData[i].direction">
+                    [(ngModel)]="windData[i].direction" id="{{'windEnter' + (i*2 + 1)}}"
+                    (keyup.enter)="keytab($event,(i*2 + 1))" #windInput>
                 </ion-input>
             </ion-col>
             <ion-col size="4" class="ion-text-center">
-                <ion-input class="speedInput" required type="number" inputmode="numeric"
-                    [(ngModel)]="windData[i].speed">
+                <ion-input class="speedInput" required type="number" inputmode="numeric" [(ngModel)]="windData[i].speed"
+                    id="{{'windEnter' + (i*2 + 2)}}" (keyup.enter)="keytab($event,(i*2 + 2))" #windInput>
                 </ion-input>
             </ion-col>
         </ion-row>
