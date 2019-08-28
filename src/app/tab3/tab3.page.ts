@@ -421,8 +421,6 @@ export class Tab3Page {
       elementI += 1;
     });
 
-    console.log(windData);
-
     const totalSpeedLoBal = Math.sqrt(
       Math.pow(northSouthLoBalTotal, 2) + Math.pow(eastWestLoBalTotal, 2)
     );
@@ -453,15 +451,15 @@ export class Tab3Page {
     }
   }
 
-  onChangePossibleRunIn(event) {
+  onChangePossibleRunIn(event: { target: { value: string | number; }; }) {
     // console.log("Event Target Value: ",event.target.value);
     this.runInKM = parseFloat((+event.target.value * 1.852).toFixed(2));
   }
 
-  degToRad(deg) {
+  degToRad(deg: number) {
     return deg * (Math.PI / 180);
   }
-  radToDeg(rad) {
+  radToDeg(rad: number) {
     return rad * (180 / Math.PI);
   }
 }

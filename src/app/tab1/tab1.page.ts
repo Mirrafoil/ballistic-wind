@@ -121,7 +121,7 @@ export class Tab1Page {
     this.form.reset();
   }
 
-  onSubmitJumpTypeChanged($event) {
+  onSubmitJumpTypeChanged($event: { detail: { value: string; }; }) {
     this.eventsTab1.publish('jump-type-changed', $event.detail.value);
     localStorage.setItem('jumpType', $event.detail.value);
     if ($event.detail.value === 'Freefall') {
