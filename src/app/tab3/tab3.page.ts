@@ -13,7 +13,6 @@ export class Tab3Page {
   dropAltitude: number;
   actualAltitude: number;
   dzElevation: number;
-  driveRatio: number;
   verticalReference: string;
   averageSpeed: number;
   windVector: number;
@@ -40,7 +39,6 @@ export class Tab3Page {
   }[];
   showStandoff: boolean;
   showFreefall: boolean;
-  grossError: number;
   windVectorLoBal: number;
   windVectorHiBal: number;
   driveDisplay: number;
@@ -252,7 +250,6 @@ export class Tab3Page {
       this.jumpType = dropSettings['jumpType'];
       this.dropAltitude = dropSettings['dropAltitude'];
       this.dzElevation = dropSettings['dzElevation'];
-      this.driveRatio = dropSettings['driveRatio'];
       this.verticalReference = dropSettings['verticalReference'];
 
       // Actual Altitude only provided for Freefall
@@ -349,39 +346,12 @@ export class Tab3Page {
       's';
     this.CNI = drive + this.averageSpeed;
 
-    // Gross Error
-    const dropHeightGrossError =
-      altitudeSelectedElement[0].windDrive * this.averageSpeed +
-      (this.driveRatio / 3.2) * altitudeSelectedElement[0].canopyDrive;
-
-    const upperGrossErrorElement = this.bt80.filter(obj => {
-      return obj.altitude === dropHeightUpper;
-    });
-    const upperGrossError =
-      upperGrossErrorElement[0].windDrive * this.averageSpeed +
-      (this.driveRatio / 3.2) * upperGrossErrorElement[0].canopyDrive;
-
-    const lowerGrossErrorElement = this.bt80.filter(obj => {
-      return obj.altitude === dropHeightLower;
-    });
-    const lowerGrossError =
-      lowerGrossErrorElement[0].windDrive * this.averageSpeed +
-      (this.driveRatio / 3.2) * lowerGrossErrorElement[0].canopyDrive;
-
-    this.grossError =
-      upperGrossError -
-      ((upperGrossError - lowerGrossError) / 1000) *
-        (this.dzElevation - dzElevationRoundedDown);
-    const grossErrorYards = Math.round(this.grossError * 2025.372);
-    const grossErrorKM = this.grossError * 1.852;
-
     // to closest thousand
     const closest10k =
       Math.round(this.dropAltitude / 1000 - this.dzElevation / 1000) * 1000;
     const canopyDrive = this.bt80.find(
       element => element.altitude === closest10k
     );
-    this.driveDisplay = (canopyDrive.kts * this.driveRatio) / 2.7;
     this.descentTime = canopyDrive.time;
 
     // Calculate Freefall
