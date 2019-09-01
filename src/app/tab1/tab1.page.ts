@@ -26,7 +26,6 @@ export class Tab1Page {
     let dropAltitudeInitial = null;
     let actualAltitudeInitial = null;
     let dzElevationInitial = null;
-    let driveRatioInitial = null;
     let verticalReferenceInitial = null;
 
     if (localStorage.getItem('ballistic-settings-nighttheme') !== null) {
@@ -40,12 +39,11 @@ export class Tab1Page {
     // If settings stored locally, grab them
     if (localStorage.getItem('dropSettings') !== null) {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
-      console.log('Loading  settings from localStorage', this.dropSettings);
+      // console.log('Loading  settings from localStorage', this.dropSettings);
       jumpTypeInitial = this.dropSettings['jumpType'];
       dropAltitudeInitial = this.dropSettings['dropAltitude'];
       actualAltitudeInitial = this.dropSettings['actualAltitude'];
       dzElevationInitial = this.dropSettings['dzElevation'];
-      driveRatioInitial = this.dropSettings['driveRatio'];
       verticalReferenceInitial = this.dropSettings['verticalReference'];
 
       if (jumpTypeInitial === 'Freefall') {
@@ -67,10 +65,6 @@ export class Tab1Page {
         validators: [Validators.required]
       }),
       dzElevation: new FormControl(dzElevationInitial, {
-        updateOn: 'blur',
-        validators: [Validators.required]
-      }),
-      driveRatio: new FormControl(driveRatioInitial, {
         updateOn: 'blur',
         validators: [Validators.required]
       }),

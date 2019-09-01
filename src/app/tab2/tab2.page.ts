@@ -1,5 +1,13 @@
+import { element } from 'protractor';
 import { Events } from '@ionic/angular';
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChildren,
+  QueryList,
+  ElementRef,
+  ViewContainerRef,
+  Input
+} from '@angular/core';
 
 @Component({
   selector: 'app-tab2',
@@ -18,6 +26,8 @@ export class Tab2Page {
       this.defineAltitudes(data);
     });
   }
+
+  @ViewChildren('windInput') foundInputElements: QueryList<ElementRef>;
 
   ngOnInit() {
     if (localStorage.getItem('windData') !== null) {
@@ -171,6 +181,16 @@ export class Tab2Page {
           direction: null,
           speed: null
         };
+      }
+    }
+  }
+  keytab($event: any, i) {
+    const elements = this.foundInputElements;
+    for (let j = 0; j < elements.length; ++j) {
+      const element = elements['_results'][j]['el'];
+      if (element.id === 'windEnter' + parseInt(i + 1)) {
+        element.setFocus();
+        return;
       }
     }
   }
