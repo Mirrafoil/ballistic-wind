@@ -11,9 +11,7 @@ This application uses the https://ionicframework.com and https://angular.io.
 
 You will need https://developer.android.com/studio .
 
-### Break down into end to end tests
-
-Add Android
+Add Android to the project
 
 ```
 ionic capacitor add android
