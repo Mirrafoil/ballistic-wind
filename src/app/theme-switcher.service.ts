@@ -1,3 +1,8 @@
+/* This Service allows the user to switch themes.
+/ It achieves this by inserting certain theme CSS variables in the document when a theme is chosen
+/ Based on: https://www.joshmorony.com/creating-a-theme-switcher-service-in-ionic-using-css4-variables/
+*/
+
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { DomController } from '@ionic/angular';

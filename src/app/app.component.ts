@@ -20,6 +20,7 @@ export class AppComponent {
   }
 
   initializeApp() {
+    // When the app is initialized, check which theme was last set and apply that
     if (!localStorage.getItem('ballistic-settings-nighttheme')) {
       this.chosenTheme = 'daytime';
       this.themeSwitcher.setTheme(this.chosenTheme);

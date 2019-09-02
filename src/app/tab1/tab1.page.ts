@@ -28,6 +28,7 @@ export class Tab1Page {
     let dzElevationInitial = null;
     let verticalReferenceInitial = null;
 
+    // Set up the theme button so it reflects what the user last set.
     if (localStorage.getItem('ballistic-settings-nighttheme') !== null) {
       this.nightTheme = JSON.parse(
         localStorage.getItem('ballistic-settings-nighttheme')
@@ -36,7 +37,7 @@ export class Tab1Page {
       this.nightTheme = false;
     }
 
-    // If settings stored locally, grab them
+    // If settings stored in localStorage, grab them and have them overwrite the variables that will form the Initial form values
     if (localStorage.getItem('dropSettings') !== null) {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
       // console.log('Loading  settings from localStorage', this.dropSettings);
@@ -45,12 +46,14 @@ export class Tab1Page {
       actualAltitudeInitial = this.dropSettings['actualAltitude'];
       dzElevationInitial = this.dropSettings['dzElevation'];
       verticalReferenceInitial = this.dropSettings['verticalReference'];
-
+      
+      // This shows the additional Actual Altitude form if the type is Freefall
       if (jumpTypeInitial === 'Freefall') {
         this.showFreefall = true;
       }
     }
 
+    // Setup the main settings Form
     this.form = new FormGroup({
       jumpType: new FormControl(jumpTypeInitial, {
         updateOn: 'blur',
@@ -75,6 +78,7 @@ export class Tab1Page {
   }
 
   ionViewWillLeave() {
+    // Run function to save current form values to localStorage
     this.onSubmitDropSettingsSet();
     // console.log('Saving Submitted Entries');
   }
@@ -88,6 +92,7 @@ export class Tab1Page {
   }
 
   onSubmitDropSettingsSet() {
+    // Get all form values and save them to localStorage
     const dropSettings = {};
     Object.keys(this.form.value).forEach(key => {
       dropSettings[key] = this.form.value[key];
@@ -97,6 +102,7 @@ export class Tab1Page {
     }
   }
 
+  // When the updateTheme switch is triggered then change the current theme variables
   onUpdateChangeTheme($event) {
     this.nightTheme = $event.detail.checked;
     localStorage.setItem(
@@ -115,7 +121,8 @@ export class Tab1Page {
     this.form.reset();
   }
 
-  onSubmitJumpTypeChanged($event: { detail: { value: string; }; }) {
+  // Listen for changes in the Jump Type and show/hide the Actual Altitude input
+  onSubmitJumpTypeChanged($event: { detail: { value: string } }) {
     this.eventsTab1.publish('jump-type-changed', $event.detail.value);
     localStorage.setItem('jumpType', $event.detail.value);
     if ($event.detail.value === 'Freefall') {

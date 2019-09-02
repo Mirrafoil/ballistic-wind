@@ -1,13 +1,6 @@
 import { element } from 'protractor';
 import { Events } from '@ionic/angular';
-import {
-  Component,
-  ViewChildren,
-  QueryList,
-  ElementRef,
-  ViewContainerRef,
-  Input
-} from '@angular/core';
+import { Component, ViewChildren, QueryList, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-tab2',
@@ -20,6 +13,7 @@ export class Tab2Page {
   lastMessage: string;
 
   constructor(public eventsTab2: Events) {
+    // Listen for any events fired called 'jump-type-changed', fired by Tab1 on changing Jump Type
     this.eventsTab2.subscribe('jump-type-changed', data => {
       console.log('Tab2: Jump Type Changed to ', data);
       this.lastMessage = data;
@@ -27,26 +21,35 @@ export class Tab2Page {
     });
   }
 
+  // Listens for any #windInput elements created, allowing us to list them to move between with the keyboard
   @ViewChildren('windInput') foundInputElements: QueryList<ElementRef>;
 
+  // When the page is initially loaded...
   ngOnInit() {
     if (localStorage.getItem('windData') !== null) {
       // console.log('Loading windData from localStorage');
+
+      // Get previously saved windData elements from localStorage
       this.windData = JSON.parse(localStorage.getItem('windData'));
     } else {
       if (localStorage.getItem('dropSettings') !== null) {
+        // Get previously saved drop settings from localStorage
         const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
+
+        // Calculate input altitudes for our given jump type
         this.defineAltitudes(dropSettings.jumpType);
       }
     }
   }
-
+  // Each time the page is entered
   ionViewWillEnter() {
+    // If we have windData then load it and recalculate altitudes
     if (localStorage.getItem('windData') !== null) {
       this.windData = JSON.parse(localStorage.getItem('windData'));
       const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
       this.defineAltitudes(dropSettings.jumpType);
     } else {
+      // If we have no windData, but do have jump settings then load the settings and calculate altitudes
       if (localStorage.getItem('dropSettings') !== null) {
         const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
         this.defineAltitudes(dropSettings.jumpType);
@@ -54,11 +57,14 @@ export class Tab2Page {
     }
   }
 
+  // When we lave the page... 
   ionViewWillLeave() {
+    // Save the inputted wind data to localStorage and trigger an event
     this.submitWindData();
     this.eventsTab2.publish('wind-data-changed', this.windData);
   }
 
+  // Function whichi saves wind data to localStorage if drop settings have been set
   submitWindData() {
     if (localStorage.getItem('dropSettings') !== null) {
       localStorage.setItem('windData', JSON.stringify(this.windData));
@@ -66,6 +72,7 @@ export class Tab2Page {
     }
   }
 
+  // Main function which calculates which altitudes to ask for input for
   defineAltitudes(jumpType) {
     // Grab values from localStorage
     const dataValues = JSON.parse(localStorage.getItem('dropSettings'));
@@ -140,6 +147,7 @@ export class Tab2Page {
     localStorage.setItem('ballistic-altitudes', JSON.stringify(this.altitudes));
   }
 
+  // Function which updates which altitudes to ask for, keeping any relevant data which has already been inputted
   updateWindDataAltitudes() {
     const storedwindData = JSON.parse(localStorage.getItem('windData'));
     if (storedwindData !== null) {
@@ -184,10 +192,18 @@ export class Tab2Page {
       }
     }
   }
+
+  // Function which listens for 'enter' and moves to the next input
+  // $event is the associated data for the enter input, i is the input number. We will swap inputs to i+1
   keytab($event: any, i) {
+    // Grab all input elements as an array
     const elements = this.foundInputElements;
+
+    // Loop through each input to find the one we want to switch to
     for (let j = 0; j < elements.length; ++j) {
+      // Grab the specific element
       const element = elements['_results'][j]['el'];
+      // If the element's ID matches the id for the element we want to move to, set focus to it and stop looking
       if (element.id === 'windEnter' + parseInt(i + 1)) {
         element.setFocus();
         return;

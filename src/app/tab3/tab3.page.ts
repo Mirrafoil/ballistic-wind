@@ -51,6 +51,7 @@ export class Tab3Page {
   }
 
   ngOnInit() {
+    // Static lookup array from para calculator v3_0.xlsx
     this.bt80 = [
       {
         altitude: 5000,
@@ -245,6 +246,8 @@ export class Tab3Page {
   }
 
   ionViewWillEnter() {
+    // Each time the page loads...
+    // If we have jump settings stored, go get them.
     if (localStorage.getItem('dropSettings') !== null) {
       const dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
       this.jumpType = dropSettings['jumpType'];
@@ -252,7 +255,7 @@ export class Tab3Page {
       this.dzElevation = dropSettings['dzElevation'];
       this.verticalReference = dropSettings['verticalReference'];
 
-      // Actual Altitude only provided for Freefall
+      // Actual Altitude only provided for Freefall. Calculate for Standoff. 
       if (this.jumpType !== 'Freefall') {
         this.actualAltitude = this.dropAltitude - this.dzElevation;
         this.showStandoff = true;
@@ -270,6 +273,7 @@ export class Tab3Page {
     }
   }
 
+  // Main function to calculate displayed jump parameters
   canclulateParameters() {
     // Get WindData that's stored...
     const windData = JSON.parse(localStorage.getItem('windData'));
@@ -285,6 +289,7 @@ export class Tab3Page {
     let northSouthTotal = 0;
     let eastWestTotal = 0;
 
+    // For each altitude with data entered calculate certain properties and save to windAnalysis variable
     windData.forEach(element => {
       const northSouth =
         Math.cos(this.degToRad(+element.direction)) * element.speed;
@@ -421,6 +426,7 @@ export class Tab3Page {
     }
   }
 
+  // Function to calculate KM from Nautical Miles
   onChangePossibleRunIn(event: { target: { value: string | number; }; }) {
     // console.log("Event Target Value: ",event.target.value);
     this.runInKM = parseFloat((+event.target.value * 1.852).toFixed(2));
