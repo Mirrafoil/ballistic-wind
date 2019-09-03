@@ -42,8 +42,8 @@ export class Tab1Page {
       this.dropSettings = JSON.parse(localStorage.getItem('dropSettings'));
       // console.log('Loading  settings from localStorage', this.dropSettings);
       jumpTypeInitial = this.dropSettings['jumpType'];
-      dropAltitudeInitial = this.dropSettings['dropAltitude'];
-      actualAltitudeInitial = this.dropSettings['actualAltitude'];
+      dropAltitudeInitial = this.dropSettings['dropAltitude']; 
+      actualAltitudeInitial = this.dropSettings['actualAltitude'];  
       dzElevationInitial = this.dropSettings['dzElevation'];
       verticalReferenceInitial = this.dropSettings['verticalReference'];
       
@@ -63,7 +63,7 @@ export class Tab1Page {
         updateOn: 'blur',
         validators: [Validators.required]
       }),
-      actualAltitude: new FormControl(actualAltitudeInitial, {
+      actualAltitude: new FormControl(actualAltitudeInitial, {    // Time under canopy starts below this
         updateOn: 'blur',
         validators: [Validators.required]
       }),

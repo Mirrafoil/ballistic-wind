@@ -39,8 +39,6 @@ export class Tab3Page {
   }[];
   showStandoff: boolean;
   showFreefall: boolean;
-  windVectorLoBal: number;
-  windVectorHiBal: number;
   driveDisplay: number;
   descentTime: number;
 
@@ -255,7 +253,7 @@ export class Tab3Page {
       this.dzElevation = dropSettings['dzElevation'];
       this.verticalReference = dropSettings['verticalReference'];
 
-      // Actual Altitude only provided for Freefall. Calculate for Standoff. 
+      // Actual Altitude only provided for Freefall. Calculate for Standoff.
       if (this.jumpType !== 'Freefall') {
         this.actualAltitude = this.dropAltitude - this.dzElevation;
         this.showStandoff = true;
@@ -352,10 +350,10 @@ export class Tab3Page {
     this.CNI = drive + this.averageSpeed;
 
     // to closest thousand
-    const closest10k =
+    const closest1k =
       Math.round(this.dropAltitude / 1000 - this.dzElevation / 1000) * 1000;
     const canopyDrive = this.bt80.find(
-      element => element.altitude === closest10k
+      element => element.altitude === closest1k
     );
     this.descentTime = canopyDrive.time;
 
@@ -369,13 +367,20 @@ export class Tab3Page {
     let eastWestHiBalTotal = 0;
     let countHiBal = 0;
     let countLoBal = 0;
+    let firstHiBalAlt = 0;
+
+    if (this.actualAltitude % 1000 === 0) {
+      firstHiBalAlt = (Math.round(this.actualAltitude / 1000) + 2) * 1000;
+    } else {
+      firstHiBalAlt = (Math.round(this.actualAltitude / 1000) + 1) * 1000;
+    }
 
     windData.forEach(element => {
       const northSouth =
         Math.cos(this.degToRad(+element.direction)) * element.speed;
       const eastWest =
         Math.sin(this.degToRad(+element.direction)) * element.speed;
-      if (this.actualAltitude <= elementI * 1000) {
+      if (firstHiBalAlt <= element.altitude) {
         // HiBal Case
         northSouthHiBalTotal += northSouth;
         eastWestHiBalTotal += eastWest;
@@ -427,7 +432,7 @@ export class Tab3Page {
   }
 
   // Function to calculate KM from Nautical Miles
-  onChangePossibleRunIn(event: { target: { value: string | number; }; }) {
+  onChangePossibleRunIn(event: { target: { value: string | number } }) {
     // console.log("Event Target Value: ",event.target.value);
     this.runInKM = parseFloat((+event.target.value * 1.852).toFixed(2));
   }
